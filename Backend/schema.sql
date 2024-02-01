@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS College;
 
 -- Switch to the specified database
-USE student;
+USE College;
 
 -- Create the student_info table if it doesn't exist
 CREATE TABLE IF NOT EXISTS Fuels (
