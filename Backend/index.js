@@ -1,29 +1,30 @@
 import express from 'express';
-import { getnotes, getnote, createnote } from './database.js';
+import { getUsers, getPosts, getLikes, getComments } from './database.js';  // Adjust the path if needed
 
 const app = express();
-app.use(express.json())
+app.use(express.json());
 const port = 3000;
 
-app.get("/getnotes", async (req, res) => {
-  const response = await getnotes() ;
-  res.send(response);
-});
-
-app.get("/getnote/:id", async (req, res) => {
-    const id = req.params.id;
-    const response = await getnote(id) ;
+app.get('/users', async (req, res) => {
+    const response = await getUsers();
     res.send(response);
 });
 
-app.post("/createnote", async (req, res) => {
-    const {student_id, first_name, last_name, age, major}  = req.body;
-    const response = await createnote(student_id, first_name, last_name, age, major);
-    res.status(201).send(response);
+app.get('/posts', async (req, res) => {
+    const response = await getPosts();
+    res.send(response);
 });
 
+app.get('/likes', async (req, res) => {
+    const response = await getLikes();
+    res.send(response);
+});
 
+app.get('/comments', async (req, res) => {
+    const response = await getComments();
+    res.send(response);
+});
 
 app.listen(port, () => {
-    console.log(`server is running on port ${port}`);
-})
+    console.log(`Server is running on port ${port}`);
+});
