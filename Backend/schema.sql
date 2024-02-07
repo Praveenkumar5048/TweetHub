@@ -12,9 +12,7 @@ CREATE TABLE IF NOT EXISTS Users (
     password_hash VARCHAR(255) NOT NULL,
     bio TEXT,
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_login TIMESTAMP
 );
-
 
 -- Create the Posts table
 CREATE TABLE IF NOT EXISTS Posts (
@@ -31,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Likes (
     like_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     post_id INT,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    liked_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
 );
@@ -42,8 +40,16 @@ CREATE TABLE IF NOT EXISTS Comments (
     user_id INT,
     post_id INT,
     content TEXT,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    commented_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
 );
+
+-- HashTag  Table
+CREATE TABLE IF NOT EXISTS HashTag (
+    hashTag_id INT AUTO_INCREMENT,
+    hashTag_name VARCHAR(255),
+    post_id INT,
+    FOREIGN KEY (post_id) REFERENCES Posts(post_id)
+) 
 
