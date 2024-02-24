@@ -1,7 +1,6 @@
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Avatar } from "@mui/material";
 import React from "react";
-import "./Post.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
@@ -9,31 +8,31 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
 function Post({ user, postImage, likes, timestamp }) {
   return (
-    <div className="post">
-      <div className="post__header">
-        <div className="post__headerAuthor">
-          <Avatar style={{ marginRight: "10px" }}>
+    <div className="w-full max-w-2xl mx-auto my-4"> {/* Adjusted width class to max-w-2xl */}
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center font-bold">
+          <Avatar className="mr-2">
             {user.charAt(0).toUpperCase()}
           </Avatar>{" "}
-          {user} • <span>{timestamp}</span>
+          {user} • <span className="text-gray-500">{timestamp}</span>
         </div>
         <MoreHorizIcon />
       </div>
-      <div className="post__image">
-        <img src={postImage} alt="Post Image" />
+      <div>
+        <img className="w-full rounded-md border border-gray-500" src={postImage} alt="Post Image" />
       </div>
-      <div className="post__footer">
-        <div className="post__footerIcons">
-          <div className="post__iconsMain">
-            <FavoriteBorderIcon className="postIcon" />
-            <ChatBubbleOutlineIcon className="postIcon" />
-            <TelegramIcon className="postIcon" />
+      <div className="mt-4">
+        <div className="flex justify-between items-center">
+          <div className="flex">
+            <FavoriteBorderIcon className="postIcon p-1" />
+            <ChatBubbleOutlineIcon className="postIcon p-1" />
+            <TelegramIcon className="postIcon p-1" />
           </div>
-          <div className="post__iconSave">
-            <BookmarkBorderIcon className="postIcon" />
+          <div>
+            <BookmarkBorderIcon className="postIcon p-1" />
           </div>
         </div>
-        Liked by {likes} people.
+        <p className="mt-2">Liked by {likes} people.</p>
       </div>
     </div>
   );

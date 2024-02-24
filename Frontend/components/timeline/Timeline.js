@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Post from "./Post/Post";
-import Suggestions from "./Suggestions";
-import "./Timeline.css";
+import Suggestions from "./Suggestions/Follwers";
+import Trending from "./Suggestions/Trending";
 
 function Timeline() {
   const [posts, setPosts] = useState([
@@ -37,11 +37,12 @@ function Timeline() {
   ]);
 
   return (
-    <div className="timeline">
-      <div className="timeline__left">
-        <div className="timeline__posts">
-          {posts.map((post) => (
+    <div className="flex h-screen">
+      <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+        <div className="grid grid-cols-1 gap-4">
+          {posts.map((post, index) => (
             <Post
+              key={index}
               user={post.user}
               postImage={post.postImage}
               likes={post.likes}
@@ -50,8 +51,9 @@ function Timeline() {
           ))}
         </div>
       </div>
-      <div className="timeline__right">
+      <div className="mx-auto flex-1/4 overflow-hidden">
         <Suggestions />
+        <Trending/>
       </div>
     </div>
   );
