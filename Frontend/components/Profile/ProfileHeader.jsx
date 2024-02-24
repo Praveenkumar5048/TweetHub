@@ -14,7 +14,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="container w-3/5 mx-auto p-6 bg-black text-white">
+    <div className="container w-2/5 mx-auto p-6 bg-black text-white">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <img src="/sagarp.png" alt="Profile Picture" className="w-16 h-16 rounded-full mr-4" />

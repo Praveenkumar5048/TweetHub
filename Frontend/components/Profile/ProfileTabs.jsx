@@ -54,7 +54,7 @@ const Post = ({ content, image }) => (
 );
 
 const RandomPosts = () => {
-  // Example array of posts
+ 
   const posts = [
     { content: "This is a random post.", image: "/sagarp.png" },
     { content: "Another random post.", image: "/sagarp.png" },
