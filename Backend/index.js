@@ -1,29 +1,16 @@
 import express from 'express';
-import { getUsers, getPosts, getLikes, getComments } from './database.js';  // Adjust the path if needed
+import cors from "cors";
+import bodyParser from "body-parser"
+import routes from "./routes/routes.js";
 
 const app = express();
+const port = 8080;
+
 app.use(express.json());
-const port = 3000;
+app.use(cors());
+app.use("/", routes);
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/users', async (req, res) => {
-    const response = await getUsers();
-    res.send(response);
-});
-
-app.get('/posts', async (req, res) => {
-    const response = await getPosts();
-    res.send(response);
-});
-
-app.get('/likes', async (req, res) => {
-    const response = await getLikes();
-    res.send(response);
-});
-
-app.get('/comments', async (req, res) => {
-    const response = await getComments();
-    res.send(response);
-});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

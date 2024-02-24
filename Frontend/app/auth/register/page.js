@@ -1,8 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-
-// Import necessary modules and dependencies
+import axios from 'axios';
 
 const Signup = () => {
     const [name, setName] = useState('');
@@ -11,15 +10,28 @@ const Signup = () => {
     const [dob, setDob] = useState('');
     const [bio, setBio] = useState('');
   
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
       e.preventDefault();
-      // Implement your signup logic here using 'name', 'email', 'dob', 'bio'
-      console.log('Signing up with:', name, email, dob, bio,password);
+      
+      try {
+    
+        const response = await axios.post('http://localhost:8080/signUp', data);
+    
+        if (response.status === 201) {
+          console.log('User registerd successfully!');
+         
+        } else {
+          console.error('Failed to Failed to register User:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('Error Registering User:', error);
+      }
+      
     };
   
     return (
       <div className="flex h-screen items-center justify-center bg-gradient-to-r from-pink-500 to-purple-500">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
           <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Create Your Account</h1>
           <form className="space-y-4" onSubmit={handleSignup}>
             <div>
