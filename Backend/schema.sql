@@ -2,7 +2,7 @@
 CREATE DATABASE IF NOT EXISTS SocialMediaApp;
 
 -- Switch to the specified database
-USE SocialMediaApp;
+USE TweetVerse;
 
 -- Create the Users table 
 CREATE TABLE IF NOT EXISTS Users (
