@@ -2,9 +2,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
+import { useRouter } from 'next/navigation'
 
 const Signup = () => {
-    const [name, setName] = useState('');
+  
+    const router = useRouter(); 
+    const [displayname, setDisplayName] = useState('');
+    const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [dob, setDob] = useState('');
@@ -15,18 +19,19 @@ const Signup = () => {
       
       try {
     
-        const response = await axios.post('http://localhost:8080/signUp', data);
+        const response = await axios.post('http://localhost:8080/signUp', 
+        {displayname, username, email, dob, bio, password} );
     
         if (response.status === 201) {
           console.log('User registerd successfully!');
-         
+          router.push('/home');
         } else {
           console.error('Failed to Failed to register User:', response.status, response.statusText);
         }
       } catch (error) {
         console.error('Error Registering User:', error);
       }
-      
+
     };
   
     return (
@@ -35,13 +40,23 @@ const Signup = () => {
           <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Create Your Account</h1>
           <form className="space-y-4" onSubmit={handleSignup}>
             <div>
-              <label className="block text-sm font-medium text-gray-600">Name:</label>
+              <label className="block text-sm font-medium text-gray-600">Display Name:</label>
               <input
                 type="text"
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your display name"
+                value={displayname}
+                onChange={(e) => setDisplayName(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-600">Username:</label>
+              <input
+                type="text"
+                className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
             <div>

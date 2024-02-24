@@ -8,9 +8,10 @@ const port = 8080;
 
 app.use(express.json());
 app.use(cors());
-app.use("/", routes);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use("/", routes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
