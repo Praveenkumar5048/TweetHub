@@ -3,7 +3,7 @@ import { getUsers, getPosts, getLikes, getComments } from './database.js';  // A
 
 const app = express();
 app.use(express.json());
-const port = 3000;
+const port = 8080;
 
 app.get('/users', async (req, res) => {
     const response = await getUsers();
