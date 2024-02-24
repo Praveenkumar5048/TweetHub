@@ -1,17 +1,31 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-
-// Import necessary modules and dependencies
+import { useRouter } from 'next/navigation'
+import axios from 'axios';
 
 const Login = () => {
+
+    const router = useRouter(); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
       e.preventDefault();
-      // Implement your login logic here using 'email' and 'password'
-      console.log('Logging in with:', email, password);
+      
+      try {
+    
+        const response = await axios.post('http://localhost:8080/login', { email, password} );
+    
+        if (response.status === 201) {
+          console.log('Logged in successfully!');
+          router.push('/home');
+        } else {
+          console.error('Failed to Login User:', response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error('Error During login User:', error);
+      }
     };
   
     return (

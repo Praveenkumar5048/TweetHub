@@ -2,16 +2,18 @@
 CREATE DATABASE IF NOT EXISTS SocialMediaApp;
 
 -- Switch to the specified database
-USE SocialMediaApp;
+USE TweetVerse;
 
 -- Create the Users table 
 CREATE TABLE IF NOT EXISTS Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    displayname VARCHAR(255),
+    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    dob DATE,
     bio TEXT,
-    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    password_hash VARCHAR(255) NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create the Posts table
@@ -47,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Comments (
 
 -- HashTag  Table
 CREATE TABLE IF NOT EXISTS HashTag (
-    hashTag_id INT AUTO_INCREMENT,
+    hashTag_id INT AUTO_INCREMENT PRIMARY KEY,
     hashTag_name VARCHAR(255),
     post_id INT,
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
