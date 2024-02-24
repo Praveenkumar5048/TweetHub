@@ -1,15 +1,14 @@
 import React from "react";
-import "./Homepage.css";
 import Sidenav from "../navigation/Sidenav";
 import Timeline from "../timeline/Timeline";
 
 function Homepage() {
   return (
-    <div className="homepage">
-      <div className="homepage__navWraper">
+    <div className="flex">
+      <div className="relative flex-shrink-0 w-1/5">
         <Sidenav />
       </div>
-      <div className="homepage__timeline">
+      <div className="flex-grow">
         <Timeline />
       </div>
     </div>
