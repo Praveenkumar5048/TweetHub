@@ -1,5 +1,5 @@
 -- Create the database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS SocialMediaApp;
+CREATE DATABASE IF NOT EXISTS TweetVerse;
 
 -- Switch to the specified database
 USE TweetVerse;
