@@ -1,5 +1,5 @@
 import express from "express"
-import { getUserDetails } from "../controllers/userController.js";
+import { getUserDetails ,updateUserDetails} from "../controllers/userController.js";
 import { loginUser,signupUser } from "../controllers/authcontroller.js";
 
 const router = express.Router();
@@ -10,6 +10,6 @@ router.post("/signUp", signupUser);
 
 //geting user details
 router.get('/profile/:userId', getUserDetails);
-
+router.post('/updateProfile',updateUserDetails);
 
 export default router;
