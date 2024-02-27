@@ -1,5 +1,28 @@
 import { db } from "../database.js";
 
+export const getUserBasicDetails = async (req, res) => {
+  const userId = req.params.userId; 
+  try {
+    
+    const getUserQuery = `SELECT displayname, profile_path FROM Users WHERE user_id = ?`;
+    const userData = await db.query(getUserQuery, [userId]);
+
+    if (userData[0].length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userDetails = {
+      displayName: userData[0][0].displayname,
+      profilePath: userData[0][0].profile_path
+    };
+
+    return res.status(200).json(userDetails);
+
+  } catch {
+
+  }
+}
+
 export const getUserDetails = async (req, res) => {
   try {
     const userId = req.params.userId; 

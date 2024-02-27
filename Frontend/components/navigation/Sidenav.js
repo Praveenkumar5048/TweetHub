@@ -1,4 +1,9 @@
+'use client'
+
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
+
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -9,9 +14,36 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Avatar } from "@mui/material";
 
 function Sidenav() {
+  
+  const [userId, setUserId] = useState(null); // Initialize userId state
+  const [userDetails, setUserDetails] = useState({
+    displayName: '',
+    profilePath: ''
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const storedUserId = localStorage.getItem("userId");
+      setUserId(storedUserId);
+
+      // Make an API call to fetch user details
+      if (storedUserId) {
+        try {
+          const response = await axios.get(`http://localhost:8080/userDetails/${storedUserId}`);
+          setUserDetails(response.data);
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [])
+  
+  
   return (
     <div className="fixed flex flex-col justify-between z-10">
-      <h1 class="text-3xl ml-5 font-mono  text-white my-8">Tweetverse</h1>
+      <h1 className="text-3xl ml-5 font-mono  text-white my-8">Tweetverse</h1>
 
       <div className="flex flex-col gap-5">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
@@ -39,10 +71,12 @@ function Sidenav() {
           <span className="ml-4 text-xl font-bold">Post</span>
         </button>
       </div>
+      
       <div className="sidenav__header flex items-center py-4 px-4">
-        <Avatar src={"http://localhost:8080/Uploads/profile_photos/Default_Profile_photo.png"} alt='skpsmpsap' className="mr-2 w-8 h-8" />
-        <span className="text-xl font-bold">skpsmpsap</span>
+        <Avatar src={`http://localhost:8080/${userDetails.profilePath}`} alt='skpsmpsap' className="mr-2 w-8 h-8" />
+        <span className="text-xl text-white">{userDetails.displayName}</span>
       </div>
+      
       <div className="fixed bottom-3">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <MenuIcon />

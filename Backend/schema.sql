@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Users (
     dob DATE,
     bio TEXT,
     password_hash VARCHAR(255) NOT NULL,
-    profile_path VARCHAR(255),
+    profile_path VARCHAR(255) DEFAULT 'Uploads\profile_photos\Default_Profile_photo.png',
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -35,22 +35,6 @@ const Signup = () => {
 
     };
     
-    const handleUpload = async () => {
-       const formData = new FormData()
-       formData.append('file', file)
-       try {
-        const response = await axios.post('http://localhost:8080/upload', formData );
-        if (response.status === 201) {
-          console.log('Upload successfully!');
-          
-        } else {
-          console.error('Failed to Upload:', response.status, response.statusText);
-        }
-       } catch (error) {
-         console.error('Error Uploading :', error);
-       }
-    };
-    
     return (
       <div className="flex h-screen items-center justify-center bg-gradient-to-r from-pink-500 to-purple-500">
         <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
@@ -114,10 +98,7 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>
-            <div>
-              <input type='file' onChange={ (e) => setFile(e.target.files[0])}></input>
-              <button type='button' className='bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ' onClick={handleUpload}>Upload</button>
-            </div>
+           
             <button
               type="submit"
               className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 focus:outline-none focus:ring focus:border-blue-300"

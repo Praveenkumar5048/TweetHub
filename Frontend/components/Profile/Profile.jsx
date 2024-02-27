@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from "react";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTabs from "./ProfileTabs";

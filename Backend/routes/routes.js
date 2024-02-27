@@ -2,8 +2,8 @@ import express from "express"
 
 import {loginUser, signupUser } from "../controllers/authcontroller.js";
 import { handleFileUpload, uploadFile} from "../controllers/profileUpload.js";
-import { getUserDetails ,updateUserDetails} from "../controllers/userController.js";
-import { loginUser,signupUser } from "../controllers/authcontroller.js";
+import { getUserDetails, getUserBasicDetails, updateUserDetails} from "../controllers/userController.js";
+
 
 const router = express.Router();
 
@@ -11,9 +11,10 @@ const router = express.Router();
 router.post("/login", loginUser );
 router.post("/signUp", signupUser);
 
-router.post("/upload", uploadFile, handleFileUpload);
+router.post("/upload/:userId", uploadFile, handleFileUpload);
 
 //geting user details
+router.get('/userDetails/:userId', getUserBasicDetails);
 router.get('/profile/:userId', getUserDetails);
 router.post('/updateProfile',updateUserDetails);
 
