@@ -1,14 +1,13 @@
 import { db } from "../database.js"; 
 
 export const loginUser  = async (req, res) => {
-
+    
     const { email, password} = req.body;
 
     try {
         console.log(email + password)
         const getUserQuery = `SELECT * FROM Users WHERE email = ?`;
         const userData = await db.query(getUserQuery, [email]);
-        console.log(userData)
         if (userData[0].length !== 0) {
             const user = userData[0][0];
             

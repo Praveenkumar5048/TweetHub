@@ -13,7 +13,8 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [dob, setDob] = useState('');
     const [bio, setBio] = useState('');
-  
+    const [file, setFile] = useState();
+
     const handleSignup = async (e) => {
       e.preventDefault();
       
@@ -33,7 +34,7 @@ const Signup = () => {
       }
 
     };
-  
+    
     return (
       <div className="flex h-screen items-center justify-center bg-gradient-to-r from-pink-500 to-purple-500">
         <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
@@ -47,7 +48,7 @@ const Signup = () => {
                 placeholder="Enter your display name"
                 value={displayname}
                 onChange={(e) => setDisplayName(e.target.value)}
-              />
+              ></input>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">Username:</label>
@@ -57,7 +58,7 @@ const Signup = () => {
                 placeholder="Enter your username"
                 value={username}
                 onChange={(e) => setUserName(e.target.value)}
-              />
+              ></input>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">Email:</label>
@@ -67,7 +68,7 @@ const Signup = () => {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              />
+              ></input>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">Date of Birth:</label>
@@ -76,7 +77,7 @@ const Signup = () => {
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-              />
+              ></input>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">Bio:</label>
@@ -95,8 +96,9 @@ const Signup = () => {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
+              ></input>
             </div>
+           
             <button
               type="submit"
               className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 focus:outline-none focus:ring focus:border-blue-300"

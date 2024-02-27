@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const Modal = ({ isOpen, onClose, userData }) => {
 
@@ -8,9 +9,26 @@ const Modal = ({ isOpen, onClose, userData }) => {
     username: userData?.user?.username || "",
     bio: userData?.user?.username || "", 
   });
+  const [file, setFile] = useState();
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.id]: event.target.value });
+  };
+
+  const handleUpload = async () => {
+    const formData = new FormData()
+    formData.append('file', file)
+    try {
+     const response = await axios.post(`http://localhost:8080/upload/${userData?.user?.user_id}`, formData );
+     if (response.status === 201) {
+       console.log('Upload successfully!');
+       alert('Upload successful!');
+     } else {
+       console.error('Failed to Upload:', response.status, response.statusText);
+     }
+    } catch (error) {
+      console.error('Error Uploading :', error);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -47,6 +65,33 @@ const Modal = ({ isOpen, onClose, userData }) => {
         <div className="flex items-center mb-4">
           <h2 className="text-xl text-black font-bold">Edit Profile</h2>
         </div>
+        
+        <div className="flex flex-row items-center space-x-4 mb-4">
+          <label htmlFor="fullName" className="block text-black text-sm font-medium">
+          Edit Profile Photo
+          </label>
+          <div className="relative border border-gray-300 rounded-md px-2 py-1 flex items-center justify-between bg-white w-80">
+          <input
+          type="file"
+          id="fileInput"
+          className="absolute inset-0 opacity-0 h-full cursor-pointer"
+          onChange={(e) => setFile(e.target.files[0])}
+          />
+          <span className="text-gray-500">Choose Image</span>
+          {file && (
+          <span className="truncate text-black">{file.name}</span>
+          )}
+          </div>
+          <button
+          type="button"
+          className="bg-green-500 hover:bg-green-600 text-white py-1 px-2 rounded transition duration-300 ease-in-out"
+          onClick={handleUpload}
+          >
+          Upload
+          </button>
+        </div>
+
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="fullName" className="block text-black text-sm font-medium mb-2">

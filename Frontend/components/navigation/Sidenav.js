@@ -1,4 +1,7 @@
+'use client'
 import React from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -9,13 +12,36 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Avatar } from "@mui/material";
 
 function Sidenav() {
+  
+  const [userId, setUserId] = useState(null); // Initialize userId state
+  const [userDetails, setUserDetails] = useState({
+    displayName: '',
+    profilePath: ''
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const storedUserId = localStorage.getItem("userId");
+      setUserId(storedUserId);
+
+      // Make an API call to fetch user details
+      if (storedUserId) {
+        try {
+          const response = await axios.get(`http://localhost:8080/userDetails/${storedUserId}`);
+          setUserDetails(response.data);
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [])
+  
+  
   return (
     <div className="fixed flex flex-col justify-between z-10">
-      <img
-        className="w-32 mx-6 my-8"
-        src="https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png"
-        alt="Instagram Logo"
-      />
+      <h1 className="text-3xl ml-5 font-mono  text-white my-8">Tweetverse</h1>
       <div className="flex flex-col gap-5">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <HomeIcon />
@@ -42,10 +68,13 @@ function Sidenav() {
           <a href="/post"><span className="ml-4 text-xl font-bold">Post</span></a>
         </button>
       </div>
-      <div className="rounded-xl flex items-center py-4 px-4 hover:bg-gray-500">
-        <Avatar src={'/sagarp.png'} alt='skpsmpsap' className="mr-2 w-8 h-8" />
-        <a href="/profile"><span className="text-xl font-bold text-white ">skpsmpsap</span></a>
+
+      
+      <div className="sidenav__header flex items-center py-4 px-4">
+        <Avatar src={`http://localhost:8080/${userDetails.profilePath}`} alt='skpsmpsap' className="mr-2 w-8 h-8" />
+        <span className="text-xl text-white">{userDetails.displayName}</span>
       </div>
+      
       <div className="fixed bottom-3">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <MenuIcon />

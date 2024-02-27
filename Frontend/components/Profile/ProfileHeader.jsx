@@ -18,7 +18,7 @@ const Profile = ({userData}) => {
     <div className="container w-2/5 mx-auto p-6 bg-black text-white">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
-          <img src="/avatar.png" alt="Profile Picture" className="w-16 h-16 rounded-full mr-4" />
+          <img src={`http://localhost:8080/${userData?.user.profile_path}`} alt="Profile Picture" className="w-16 h-16 rounded-full mr-4" />
           <div className="flex flex-col">
             <h2 className="text-2xl font-bold">{userData?.user.displayname}</h2>
             <span className="text-sm">{userData?.user.username}</span>
