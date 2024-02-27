@@ -4,7 +4,7 @@ import { Flex, Box, Button, Text, Image } from "@chakra-ui/react";
 import { BsGrid3X3, BsBookmark, BsSuitHeart } from "react-icons/bs";
 import TabButton from './TabButton';
 
-const ProfileTabs = () => {
+const ProfileTabs = ({ user }) => {
   const [activeTab, setActiveTab] = useState("posts");
 
   const handleTabClick = (tab) => {

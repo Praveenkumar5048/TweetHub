@@ -5,7 +5,7 @@ export const loginUser  = async (req, res) => {
     const { email, password} = req.body;
 
     try {
-        
+        console.log(email + password)
         const getUserQuery = `SELECT * FROM Users WHERE email = ?`;
         const userData = await db.query(getUserQuery, [email]);
         console.log(userData)
@@ -13,7 +13,7 @@ export const loginUser  = async (req, res) => {
             const user = userData[0][0];
             
             if (user.password_hash === password) {
-                res.status(201).json({ message: 'Login successful!' });
+                res.status(201).json({ user: user,message: 'Login successful!' });
             } else {
                
                 res.status(401).json({ error: 'Invalid email or password' });
@@ -30,7 +30,7 @@ export const loginUser  = async (req, res) => {
 
 export const signupUser  = async (req, res) => {
     try {
-        
+        console.log(req.body)
         const { displayname, username, email, dob, bio, password} = req.body;
       
         const insertUserQuery = `INSERT INTO Users (displayname, username, email, dob, bio, password_hash)
