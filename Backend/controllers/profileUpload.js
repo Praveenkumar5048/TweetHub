@@ -15,13 +15,14 @@ export const uploadFile = upload.single('file');
 
 export const handleFileUpload  = async (req, res) => {
     try {
-        console.log(req.file.path)
+        
         if (!req.file) {
             return res.status(400).json({ message: 'No file uploaded' });
         }
         
-        // Do something with the uploaded file, for example, save it to a database or process it further.
-        // In this example, let's just respond with a success message.
+        const updateQuery = `UPDATE Users SET profile_path = ? WHERE user_id = 1`;
+
+        await db.query(updateQuery, [req.file.path]);
 
         return res.status(201).json({ message: 'File uploaded successfully' });
     } catch (error) {

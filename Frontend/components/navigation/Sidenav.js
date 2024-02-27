@@ -11,11 +11,7 @@ import { Avatar } from "@mui/material";
 function Sidenav() {
   return (
     <div className="fixed flex flex-col justify-between z-10">
-      <img
-        className="w-32 mx-6 my-8"
-        src="https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png"
-        alt="Instagram Logo"
-      />
+      <h1 class="text-3xl ml-5 font-mono  text-white my-8">Tweetverse</h1>
 
       <div className="flex flex-col gap-5">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
