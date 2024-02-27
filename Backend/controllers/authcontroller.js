@@ -13,7 +13,7 @@ export const loginUser  = async (req, res) => {
             const user = userData[0][0];
             
             if (user.password_hash === password) {
-                res.status(201).json({ message: 'Login successful!' });
+                res.status(201).json({ user: user,message: 'Login successful!' });
             } else {
                
                 res.status(401).json({ error: 'Invalid email or password' });
