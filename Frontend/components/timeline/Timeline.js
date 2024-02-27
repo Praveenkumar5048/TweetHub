@@ -37,7 +37,7 @@ function Timeline() {
   ]);
 
   return (
-    <div className="flex h-screen">
+    <div className="mx-auto flex h-screen">
       <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
         <div className="grid grid-cols-1 gap-4">
           {posts.map((post, index) => (

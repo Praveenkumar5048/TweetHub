@@ -36,7 +36,7 @@ function Sidenav() {
         </button>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <AddCircleOutlineIcon />
-          <span className="ml-4 text-xl font-bold">Create</span>
+          <span className="ml-4 text-xl font-bold">Post</span>
         </button>
       </div>
       <div className="sidenav__header flex items-center py-4 px-4">
