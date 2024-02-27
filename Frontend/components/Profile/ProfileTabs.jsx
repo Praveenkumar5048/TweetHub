@@ -56,9 +56,9 @@ const Post = ({ content, image }) => (
 const RandomPosts = () => {
  
   const posts = [
-    { content: "This is a random post.", image: "/sagarp.png" },
-    { content: "Another random post.", image: "/sagarp.png" },
-    { content: "Yet another random post.", image: "/sagarp.png" },
+    { content: "This is a random post.", image: "/post.jpg" },
+    { content: "Another random post.", image:"/post.jpg"  },
+    { content: "Yet another random post.", image: "/post.jpg"  },
   ];
 
   return (
@@ -73,9 +73,9 @@ const RandomPosts = () => {
 const SavedPosts = () => {
   // Example array of saved posts
   const savedPosts = [
-    { content: "This is a saved post.", image: "/sagarp.png" },
-    { content: "Another saved post.", image: "/sagarp.png" },
-    { content: "Yet another saved post.", image: "/sagarp.png" },
+    { content: "This is a saved post.", image: "/post.jpg"  },
+    { content: "Another saved post.", image: "/post.jpg"  },
+    { content: "Yet another saved post.", image: "/post.jpg"  },
   ];
 
   return (

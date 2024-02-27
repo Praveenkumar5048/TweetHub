@@ -47,7 +47,6 @@ export const getUserDetails = async (req, res) => {
 
     // Use map with a null check to avoid undefined values
     const posts = postDetailsData.map((post) => (post ? post : null));
-    console.log(posts);
 
     // Combine all data and send response
     const response = {
@@ -61,5 +60,27 @@ export const getUserDetails = async (req, res) => {
   } catch (error) {
     console.error("Error getting user details:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const updateUserDetails = async (req, res) => {
+  try {
+    const { userId, fullName, username, bio } = req.body;
+    
+    const updateQuery = `
+      UPDATE Users
+      SET displayname = ?, username = ?, bio = ?
+      WHERE user_id = ?`;
+
+    const result = await db.query(updateQuery, [fullName, username, bio, userId]);
+
+    if (result[0].affectedRows === 1) {
+      res.status(200).json({ message: 'Profile updated successfully!' });
+    } else {
+      res.status(500).json({ error: 'Failed to update profile' });
+    }
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
