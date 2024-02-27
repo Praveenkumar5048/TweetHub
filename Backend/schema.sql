@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS Users (
     dob DATE,
     bio TEXT,
     password_hash VARCHAR(255) NOT NULL,
+    profile_path VARCHAR(255) DEFAULT 'Uploads\profile_photos\Default_Profile_photo.png',
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -53,5 +54,13 @@ CREATE TABLE IF NOT EXISTS HashTag (
     hashTag_name VARCHAR(255),
     post_id INT,
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
-) 
+);
 
+-- Create the Follows table
+CREATE TABLE IF NOT EXISTS Follows (
+    follower_id INT NOT NULL,
+    following_id INT NOT NULL,
+    PRIMARY KEY (follower_id, following_id),
+    FOREIGN KEY (follower_id) REFERENCES Users(user_id),
+    FOREIGN KEY (following_id) REFERENCES Users(user_id)
+);

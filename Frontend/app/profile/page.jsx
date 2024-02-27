@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Sidenav from "@/components/navigation/Sidenav";
 import Profile from "@/components/Profile/Profile";

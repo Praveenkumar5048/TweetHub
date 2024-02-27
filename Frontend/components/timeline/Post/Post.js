@@ -26,7 +26,6 @@ function Post({ user, postImage, likes, timestamp }) {
           <div className="flex">
             <FavoriteBorderIcon className="postIcon p-1" />
             <ChatBubbleOutlineIcon className="postIcon p-1" />
-            <TelegramIcon className="postIcon p-1" />
           </div>
           <div>
             <BookmarkBorderIcon className="postIcon p-1" />
