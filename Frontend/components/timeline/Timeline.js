@@ -9,7 +9,7 @@ function Timeline() {
     {
       user: "redian_",
       postImage:
-        "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg",
+       "http://localhost:8080/Uploads/profile_photos/1709015757882_NITK colour logo.png",
       likes: 54,
       timestamp: "2d",
     },

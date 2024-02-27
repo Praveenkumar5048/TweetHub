@@ -44,7 +44,7 @@ function Sidenav() {
         </button>
       </div>
       <div className="sidenav__header flex items-center py-4 px-4">
-        <Avatar src={'/sagarp.png'} alt='skpsmpsap' className="mr-2 w-8 h-8" />
+        <Avatar src={"http://localhost:8080/Uploads/profile_photos/Default_Profile_photo.png"} alt='skpsmpsap' className="mr-2 w-8 h-8" />
         <span className="text-xl font-bold">skpsmpsap</span>
       </div>
       <div className="fixed bottom-3">
