@@ -16,11 +16,10 @@ function Sidenav() {
         src="https://www.pngkey.com/png/full/828-8286178_mackeys-work-needs-no-elaborate-presentation-or-distracting.png"
         alt="Instagram Logo"
       />
-
       <div className="flex flex-col gap-5">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <HomeIcon />
-          <span className="ml-4 text-xl font-bold">Home</span>
+          <a href="/home"><span className="ml-4 text-xl font-bold">Home</span></a>
         </button>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <SearchIcon />
@@ -40,12 +39,12 @@ function Sidenav() {
         </button>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <AddCircleOutlineIcon />
-          <span className="ml-4 text-xl font-bold">Post</span>
+          <a href="/post"><span className="ml-4 text-xl font-bold">Post</span></a>
         </button>
       </div>
       <div className="rounded-xl flex items-center py-4 px-4 hover:bg-gray-500">
         <Avatar src={'/sagarp.png'} alt='skpsmpsap' className="mr-2 w-8 h-8" />
-        <span className="text-xl font-bold ">skpsmpsap</span>
+        <a href="/profile"><span className="text-xl font-bold text-white ">skpsmpsap</span></a>
       </div>
       <div className="fixed bottom-3">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
