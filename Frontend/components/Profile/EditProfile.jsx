@@ -9,6 +9,7 @@ const Modal = ({ isOpen, onClose, userData }) => {
     username: userData?.user?.username || "",
     bio: userData?.user?.bio || "", 
   });
+  
   const [file, setFile] = useState();
 
   const handleChange = (event) => {

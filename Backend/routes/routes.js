@@ -3,6 +3,11 @@ import express from "express"
 import {loginUser, signupUser } from "../controllers/authcontroller.js";
 import { handleFileUpload, uploadFile} from "../controllers/profileUpload.js";
 import { getUserDetails, getUserBasicDetails, updateUserDetails, getUserSuggestions, setFollowingUsers} from "../controllers/userController.js";
+import { handleFileUpload, uploadFile} from "../controllers/profileUploadController.js";
+
+import { handleFileUploading, uploadFiles } from "../controllers/postUploadController.js";
+import { postData,getPosts } from "../controllers/postsController.js";
+
 
 const router = express.Router();
 
@@ -10,9 +15,10 @@ const router = express.Router();
 router.post("/login", loginUser );
 router.post("/signUp", signupUser);
 
-//Update user profile data
+
+//uploading the post and phots
 router.post("/upload/:userId", uploadFile, handleFileUpload);
-router.post('/updateProfile',updateUserDetails);
+router.post('/uploadpost/:userId',uploadFiles, handleFileUploading);
 
 //geting user details
 router.get('/userDetails/:userId', getUserBasicDetails);
@@ -23,5 +29,8 @@ router.get('/suggestions/:userId', getUserSuggestions);
 router.post('/setFollowingUsers', setFollowingUsers);
 
 
-export default router;
+//uploading posts
+router.post('/posts',postData);
+router.get('/getposts',getPosts);
 
+export default router;

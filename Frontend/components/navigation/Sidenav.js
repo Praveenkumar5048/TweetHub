@@ -1,5 +1,4 @@
 'use client'
-
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
@@ -45,12 +44,11 @@ function Sidenav() {
   return (
     <div className="fixed flex flex-col justify-between z-10">
       <h1 className="text-3xl ml-5 font-mono  text-white my-8">Tweetverse</h1>
-
       <div className="flex flex-col gap-5">
         <Link href='/home'>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <HomeIcon />
-          <span className="ml-4 text-xl font-bold">Home</span>
+          <a href="/home"><span className="ml-4 text-xl font-bold">Home</span></a>
         </button>
         </Link>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
@@ -65,14 +63,14 @@ function Sidenav() {
           <SlideshowIcon />
           <span className="ml-4 text-xl font-bold">Reels</span>
         </button>
-        <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+        <div className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <ChatIcon />
           <span className="ml-4 text-xl font-bold">Messages</span>
-        </button>
-        <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+        </div>
+        <div className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <AddCircleOutlineIcon />
-          <span className="ml-4 text-xl font-bold">Post</span>
-        </button>
+          <a href="/createpost"><span className="ml-4 text-xl font-bold">Post</span></a>
+        </div>
       </div>
       <Link href='/profile'>
       <div  className=" flex items-center rounded-lg  py-4 px-4 hover:bg-gray-500" >
