@@ -114,8 +114,16 @@ export const getUserSuggestions = async (req, res) => {
  
   try {
 
-    const getSuggestionsQuery = `SELECT user_id, displayname, profile_path FROM Users WHERE user_id <> ? LIMIT 6`;
-    const [followerData] = await db.query(getSuggestionsQuery, [userId])
+    const getSuggestionsQuery = `SELECT user_id, displayname, profile_path 
+    FROM Users 
+    WHERE user_id <> ?
+    AND user_id NOT IN (
+        SELECT following_id 
+        FROM Follows 
+        WHERE follower_id = ? 
+    ) 
+    LIMIT 6`;
+    const [followerData] = await db.query(getSuggestionsQuery, [userId, userId])
     
     return res.status(201).json({ followerData });
     
@@ -124,3 +132,19 @@ export const getUserSuggestions = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 } 
+
+export const setFollowingUsers = async (req, res) => {
+
+    const userId = req.body.userId;
+    const followingId = req.body.followingId;
+
+    try {
+     
+      const query = `INSERT INTO Follows  VALUES(?, ?)`;
+      const response = await db.query(query, [userId, followingId]);
+      return res.status(201).json({ message: "Successfully followed user." });
+    } catch(error) {
+      console.error("Error inserting into database:", error);
+      return res.status(500).json({ error: "Internal server error." });
+    }
+}
