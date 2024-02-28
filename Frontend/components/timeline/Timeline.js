@@ -1,40 +1,35 @@
-"use client";
-import React, { useState } from "react";
-import Post from "./Post/Post";
-import Suggestions from "./Suggestions/Follwers";
+"use client"
+import React, { useState, useEffect } from "react";
+import Post from "./Post/Post.js";
+import Suggestions from "./Suggestions/Follwers.js";
 import Trending from "./Suggestions/Trending";
+import axios from 'axios';
 
 function Timeline() {
-  const [posts, setPosts] = useState([
-    {
-      user: "redian_",
-      postImage:
-       "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80",
-      likes: 54,
-      timestamp: "2d",
-    },
-    {
-      user: "johndoe",
-      postImage:
-        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80",
-      likes: 432,
-      timestamp: "2d",
-    },
-    {
-      user: "mariussss",
-      postImage:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png",
-      likes: 140,
-      timestamp: "2d",
-    },
-    {
-      user: "kobee_18",
-      postImage:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGCAaQ5u1TMTij5ELPWi5-VPtlSqELw-R6lj0EpYmNcGt56kOQaCokzS0IK81MOSphlkw&usqp=CAU",
-      likes: 14,
-      timestamp: "2d",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/getposts");
+        const fetchedPosts = response.data;
+        //console.log("Fetched posts:", fetchedPosts);
+        const postsWithUserDetails = await Promise.all(
+          fetchedPosts.map(async (post) => {
+            const userResponse = await axios.get(`http://localhost:8080/userDetails/${post.user_id}`);
+            const user = userResponse.data;
+            return { ...post, user }; // Combine post data with user details
+          })
+        );
+
+        setPosts(postsWithUserDetails);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <div className="mx-auto flex h-screen">
@@ -43,17 +38,17 @@ function Timeline() {
           {posts.map((post, index) => (
             <Post
               key={index}
-              user={post.user}
-              postImage={post.postImage}
-              likes={post.likes}
-              timestamp={post.timestamp}
+              user={post.user} // Send user object instead of user_id
+              postImage={post.media_url}
+              content={post.content}
+              timestamp={post.posted_at}
             />
           ))}
         </div>
       </div>
       <div className="mx-auto flex-1/4 overflow-hidden">
         <Suggestions />
-        <Trending/>
+        <Trending />
       </div>
     </div>
   );

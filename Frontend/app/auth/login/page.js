@@ -14,7 +14,6 @@ const Login = () => {
       e.preventDefault();
       
       try {
-    
         const response = await axios.post('http://localhost:8080/login', { email, password} );
         //console.log(response.data.user);
         if (response.status === 201) {

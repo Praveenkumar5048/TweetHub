@@ -59,22 +59,19 @@ function Sidenav() {
           <SlideshowIcon />
           <span className="ml-4 text-xl font-bold">Reels</span>
         </button>
-        <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+        <div className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <ChatIcon />
           <span className="ml-4 text-xl font-bold">Messages</span>
-        </button>
-        <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+        </div>
+        <div className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <AddCircleOutlineIcon />
-          <a href="/post"><span className="ml-4 text-xl font-bold">Post</span></a>
-        </button>
+          <a href="/createpost"><span className="ml-4 text-xl font-bold">Post</span></a>
+        </div>
       </div>
-
-      
-      <div className="sidenav__header flex items-center py-4 px-4">
+      <div className="flex items-center mt-3 text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
         <Avatar src={`http://localhost:8080/${userDetails.profilePath}`} alt='skpsmpsap' className="mr-2 w-8 h-8" />
-        <span className="text-xl text-white">{userDetails.displayName}</span>
+        <a href="/profile"><span className="text-xl text-white">{userDetails.displayName}</span></a>
       </div>
-      
       <div className="fixed bottom-3">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <MenuIcon />
