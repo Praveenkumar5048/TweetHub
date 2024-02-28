@@ -16,16 +16,14 @@ const Login = () => {
       try {
     
         const response = await axios.post('http://localhost:8080/login', { email, password} );
-        //console.log(response.data.user);
+        
         if (response.status === 201) {
-          console.log('Logged in successfully!');
           localStorage.setItem('userId', JSON.stringify(response.data.user.user_id));
           router.push('/home');
-        } else {
-          console.error('Failed to Login User:', response.status, response.statusText);
-        }
+        } 
       } catch (error) {
         console.error('Error During login User:', error);
+        alert("Invalid Email or Password")
       }
     };
   

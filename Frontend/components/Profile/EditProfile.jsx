@@ -7,7 +7,7 @@ const Modal = ({ isOpen, onClose, userData }) => {
     userId :userData?.user?.user_id || "",
     fullName: userData?.user?.displayname || "", 
     username: userData?.user?.username || "",
-    bio: userData?.user?.username || "", 
+    bio: userData?.user?.bio || "", 
   });
   const [file, setFile] = useState();
 
@@ -101,7 +101,6 @@ const Modal = ({ isOpen, onClose, userData }) => {
               type="text"
               id="fullName"
               className="w-full px-4 py-2 rounded-md border text-black border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              placeholder="Sagar Athani"
               value={formData.fullName} // Pre-fill with form data
               onChange={handleChange}
             />
@@ -114,7 +113,6 @@ const Modal = ({ isOpen, onClose, userData }) => {
               type="text"
               id="username"
               className="w-full px-4 py-2 rounded-md border border-gray-300 text-black focus:outline-none focus:ring-1 focus:ring-blue-500"
-              placeholder="sagarathani0418"
               value={formData.username} // Pre-fill with form data
               onChange={handleChange}
             />

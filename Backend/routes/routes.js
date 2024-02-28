@@ -2,8 +2,7 @@ import express from "express"
 
 import {loginUser, signupUser } from "../controllers/authcontroller.js";
 import { handleFileUpload, uploadFile} from "../controllers/profileUpload.js";
-import { getUserDetails, getUserBasicDetails, updateUserDetails} from "../controllers/userController.js";
-
+import { getUserDetails, getUserBasicDetails, updateUserDetails, getUserSuggestions} from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -16,6 +15,7 @@ router.post("/upload/:userId", uploadFile, handleFileUpload);
 //geting user details
 router.get('/userDetails/:userId', getUserBasicDetails);
 router.get('/profile/:userId', getUserDetails);
+router.get('/suggestions/:userId', getUserSuggestions);
 router.post('/updateProfile',updateUserDetails);
 
 export default router;

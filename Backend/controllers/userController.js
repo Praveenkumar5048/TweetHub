@@ -107,3 +107,20 @@ export const updateUserDetails = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+export const getUserSuggestions = async (req, res) => {
+
+  const userId = req.params.userId; 
+ 
+  try {
+
+    const getSuggestionsQuery = `SELECT user_id, displayname, profile_path FROM Users WHERE user_id <> ? LIMIT 6`;
+    const [followerData] = await db.query(getSuggestionsQuery, [userId])
+    
+    return res.status(201).json({ followerData });
+    
+  } catch(error) {
+    console.error('Error fetching user details:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+} 

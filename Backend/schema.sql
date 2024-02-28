@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Users (
 CREATE TABLE IF NOT EXISTS Posts (
     post_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
-    content TEXT,
+    content TEXT NOT NULL,
     media_url VARCHAR(255),
     posted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
