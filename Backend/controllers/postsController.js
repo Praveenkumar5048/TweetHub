@@ -34,7 +34,6 @@ export const postData = async (req, res) => {
   }
 };
 
-
 export const getPosts = async (req, res) => {
   try {
     const getPostsQuery = `
@@ -55,8 +54,7 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPostsOfUser = async (req, res) => {
-
-  const userId=req.body.user_id;
+  const userId = req.params.user_id;
 
   try {
     const getPostsQuery = `

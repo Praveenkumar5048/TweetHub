@@ -3,16 +3,16 @@ import { useState } from 'react';
 import { Flex, Box, Button, Text, Image } from "@chakra-ui/react";
 import { BsGrid3X3, BsBookmark, BsSuitHeart } from "react-icons/bs";
 import TabButton from './TabButton';
+import UserPosts from './UserPosts';
 
-const ProfileTabs = ({ user }) => {
+const ProfileTabs = ({ userData }) => {
   const [activeTab, setActiveTab] = useState("posts");
-
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
   return (
-    <div className="bg-black h-screen mt-10 text-white">
+    <div className="mt-10 text-white">
 		<Flex justifyContent="center" mt={4} gap={100}>
 			<TabButton
 				onClick={() => handleTabClick("posts")}
@@ -37,7 +37,7 @@ const ProfileTabs = ({ user }) => {
 			/>
 		</Flex>
 		<div className='flex flex-col items-center mt-10'>
-			{activeTab === "posts" && <div>posts</div>}
+			{activeTab === "posts" && <UserPosts userData={userData} />}
 			{activeTab === "saved" && <div>savedposts</div>}
 			{activeTab === "likes" && <div>likedposts</div>}
 		</div>

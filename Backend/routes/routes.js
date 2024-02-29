@@ -29,7 +29,7 @@ router.post('/setFollowingUsers', setFollowingUsers);
 //uploading posts
 router.post('/posts',postData);
 router.get('/getposts',getPosts);
-router.get('/userposts',getPostsOfUser)
+router.get('/userposts/:user_id',getPostsOfUser)
 
 // fectching trending hashtags
 router.get('/trending/hashtags', getTrendingHashtags);

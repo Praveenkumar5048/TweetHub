@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import EditProfile from "./EditProfile";
 
 const Profile = ({userData}) => {
-  console.log(userData?.followers);
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -15,7 +15,7 @@ const Profile = ({userData}) => {
   };
 
   return (
-    <div className="container w-2/5 mx-auto p-6 bg-black text-white">
+    <div className="container mx-auto p-6 bg-black text-white">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <img src={`http://localhost:8080/${userData?.user.profile_path}`} alt="Profile Picture" className="w-16 h-16 rounded-full mr-4" />
