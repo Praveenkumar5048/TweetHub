@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import EditProfile from "./EditProfile";
 
-const Profile = ({userData}) => {
-  
+const Profile = ({userData,currentUserId}) => {
+  console.log(userData);
+  console.log("Current User Id: ", currentUserId);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -15,7 +16,7 @@ const Profile = ({userData}) => {
   };
 
   return (
-    <div className="container mx-auto p-6 bg-black text-white">
+    <div className="mx-auto p-6 bg-black text-white flex-shrink-0">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <img src={`http://localhost:8080/${userData?.user.profile_path}`} alt="Profile Picture" className="w-16 h-16 rounded-full mr-4" />
@@ -24,9 +25,13 @@ const Profile = ({userData}) => {
             <span className="text-sm">{userData?.user.username}</span>
           </div>
         </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md" onClick={openModal}>
-          Edit Profile
-        </button>
+        {
+          currentUserId == userData?.user.user_id && 
+          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md" onClick={openModal}>
+            Edit Profile
+          </button>
+        }
+        
       </div>
     
       <div className="flex items-center justify-between">

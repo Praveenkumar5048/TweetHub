@@ -5,11 +5,11 @@ import Suggestions from "../timeline/Suggestions/Follwers.js";
 import Trending from "../timeline/Suggestions/Trending";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTabs from "./ProfileTabs";
-import axios from 'axios';
 
 function Profilepage({user_id}) {
 
   const [userId, setUserId] = useState(null); 
+  const [currentUserId, setCurrentUserId] = useState(null);
   const [profileData, setProfileData] = useState(null); 
   const [isLoading, setIsLoading] = useState(false); 
   const [error, setError] = useState(null); 
@@ -17,7 +17,8 @@ function Profilepage({user_id}) {
   useEffect(() => {
     setUserId(user_id);
     if (user_id && !isLoading) {
-      console.log(user_id);
+      const storedUserId = localStorage.getItem("userId");
+      setCurrentUserId(storedUserId );
       setIsLoading(true);
       fetchProfileData(user_id);
     }
@@ -46,10 +47,14 @@ function Profilepage({user_id}) {
       ) : isLoading ? (
         <p>Loading profile...</p> 
       ) : (
-         <div className="mx-auto flex h-screen">
+         <div className="flex w-full h-screen">
           <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
-            <ProfileHeader userData={profileData}/>
-            <ProfileTabs userData={profileData}/>
+            <ProfileHeader 
+              userData={profileData}
+              currentUserId= {currentUserId}/>
+            <ProfileTabs 
+              userData={profileData}
+              currentUserId= {currentUserId}/>
           </div>
           <div className="mx-auto flex-1/4 overflow-hidden">
             <Suggestions />
