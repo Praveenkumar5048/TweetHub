@@ -31,6 +31,7 @@ const Signup = () => {
         }
       } catch (error) {
         console.error('Error Registering User:', error);
+        alert("Error Registering User due duplicate entries");
       }
 
     };

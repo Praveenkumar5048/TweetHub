@@ -2,6 +2,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import Link from 'next/link'
+
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -43,10 +45,12 @@ function Sidenav() {
     <div className="fixed flex flex-col justify-between z-10">
       <h1 className="text-3xl ml-5 font-mono  text-white my-8">Tweetverse</h1>
       <div className="flex flex-col gap-5">
+        <Link href='/home'>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <HomeIcon />
-          <a href="/home"><span className="ml-4 text-xl font-bold">Home</span></a>
+          <span className="ml-4 text-xl font-bold">Home</span>
         </button>
+        </Link>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <SearchIcon />
           <span className="ml-4 text-xl font-bold">Search</span>
@@ -68,10 +72,13 @@ function Sidenav() {
           <a href="/createpost"><span className="ml-4 text-xl font-bold">Post</span></a>
         </div>
       </div>
-      <div className="flex items-center mt-3 text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
-        <Avatar src={`http://localhost:8080/${userDetails.profilePath}`} alt='skpsmpsap' className="mr-2 w-8 h-8" />
-        <a href="/profile"><span className="text-xl text-white">{userDetails.displayName}</span></a>
+      <Link href='/profile'>
+      <div  className=" flex items-center rounded-lg  py-4 px-4 hover:bg-gray-500" >
+        <Avatar src={`http://localhost:8080/${userDetails.profilePath}`} alt='profile' className="mr-2 w-8 h-8" />
+        <span className="text-xl text-white">Profile</span>
       </div>
+      </Link>
+      
       <div className="fixed bottom-3">
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <MenuIcon />

@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage})
-export const uploadFiles = upload.single('file');
+export const uploadPostFiles = upload.single('file');
 
 export const handleFileUploading  = async (req, res) => {
     const userId = req.params.userId; 
