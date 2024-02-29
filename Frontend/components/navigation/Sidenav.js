@@ -48,7 +48,7 @@ function Sidenav() {
         <Link href='/home'>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <HomeIcon />
-          <a href="/home"><span className="ml-4 text-xl font-bold">Home</span></a>
+          <span className="ml-4 text-xl font-bold">Home</span>
         </button>
         </Link>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">

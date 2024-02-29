@@ -36,7 +36,6 @@ function Suggestions() {
     try {
       const response = await axios.post('http://localhost:8080/setFollowingUsers', {userId, followingId});
       if(response.status === 201){
-        console.log( "Successfully followed user.");
         setFollowingUserId(followingId);
       }
     } catch (error) {
