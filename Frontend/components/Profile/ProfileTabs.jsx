@@ -12,7 +12,7 @@ const ProfileTabs = ({ user }) => {
   };
 
   return (
-    <div className="bg-black mt-10 text-white">
+    <div className="bg-black h-screen mt-10 text-white">
 		<Flex justifyContent="center" mt={4} gap={100}>
 			<TabButton
 				onClick={() => handleTabClick("posts")}
@@ -37,70 +37,11 @@ const ProfileTabs = ({ user }) => {
 			/>
 		</Flex>
 		<div className='flex flex-col items-center mt-10'>
-			{activeTab === "posts" && <RandomPosts />}
-			{activeTab === "saved" && <SavedPosts />}
-			{activeTab === "likes" && <LikedPosts />}
+			{activeTab === "posts" && <div>posts</div>}
+			{activeTab === "saved" && <div>savedposts</div>}
+			{activeTab === "likes" && <div>likedposts</div>}
 		</div>
     </div>
-  );
-};
-
-
-const Post = ({ content, image }) => (
-  <Flex direction="column" alignItems="center" mt={4}>
-    <Image src={image} alt="Post Image" borderRadius="lg" mb={2} />
-    <Text color="white">{content}</Text>
-  </Flex>
-);
-
-const RandomPosts = () => {
- 
-  const posts = [
-    { content: "This is a random post.", image: "/post.jpg" },
-    { content: "Another random post.", image:"/post.jpg"  },
-    { content: "Yet another random post.", image: "/post.jpg"  },
-  ];
-
-  return (
-    <Flex direction="column" alignItems="center" mt={4}>
-      {posts.map((post, index) => (
-        <Post key={index} content={post.content} image={post.image} />
-      ))}
-    </Flex>
-  );
-};
-
-const SavedPosts = () => {
-  // Example array of saved posts
-  const savedPosts = [
-    { content: "This is a saved post.", image: "/post.jpg"  },
-    { content: "Another saved post.", image: "/post.jpg"  },
-    { content: "Yet another saved post.", image: "/post.jpg"  },
-  ];
-
-  return (
-    <Flex direction="column" alignItems="center" mt={4}>
-      {savedPosts.map((post, index) => (
-        <Post key={index} content={post.content} image={post.image} />
-      ))}
-    </Flex>
-  );
-};
-
-const LikedPosts = () => {
-  // Example array of liked posts
-  const likedPosts = [
-    { content: "This is a liked post.", image: "/sagarp.png" },
-    { content: "Another liked post.", image: "/sagarp.png" },
-    { content: "Yet another liked post.", image: "/sagarp.png" },
-  ];
-
-  return (
-    <Flex direction="column" alignItems="center" mt={4}>
-      {likedPosts.map((post, index) => (
-        <Post key={index} content={post.content} image={post.image} />
-      ))}
-    </Flex>
   );
 };
 

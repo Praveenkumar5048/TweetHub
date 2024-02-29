@@ -4,21 +4,20 @@ import ProfileHeader from "./ProfileHeader";
 import ProfileTabs from "./ProfileTabs";
 
 function Profilepage() {
-  const [userId, setUserId] = useState(null); // Initialize userId state
-  const [profileData, setProfileData] = useState(null); // State for profile data
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
-  const [error, setError] = useState(null); // State for potential errors
+  const [userId, setUserId] = useState(null); 
+  const [profileData, setProfileData] = useState(null); 
+  const [isLoading, setIsLoading] = useState(false); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
     setUserId(storedUserId);
     console.log(userId);
-    // Fetch profile data only if userId is available and not already fetching
     if (storedUserId && !isLoading) {
       setIsLoading(true);
       fetchProfileData(storedUserId);
     }
-  }, []); // Dependency array includes both userId and isLoading
+  }, []); 
 
   const fetchProfileData = async (userId) => {
     try {

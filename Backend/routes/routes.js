@@ -3,7 +3,7 @@ import {loginUser, signupUser } from "../controllers/authcontroller.js";
 import { handleFileUpload, uploadFile} from "../controllers/profileUploadController.js";
 import { getUserDetails, getUserBasicDetails, updateUserDetails} from "../controllers/userController.js";
 import { handleFileUploading,uploadFiles } from "../controllers/postUploadController.js";
-import { postData,getPosts } from "../controllers/postsController.js";
+import { postData,getPosts ,getPostsOfUser} from "../controllers/postsController.js";
 
 
 const router = express.Router();
@@ -24,5 +24,6 @@ router.post('/updateProfile',updateUserDetails);
 //uploading posts
 router.post('/posts',postData);
 router.get('/getposts',getPosts);
+router.get('/userposts',getPostsOfUser)
 
 export default router;
