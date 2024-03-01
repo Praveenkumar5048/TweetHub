@@ -1,56 +1,68 @@
 'use client'
 import React, { useState, useEffect } from "react";
+import Post from "../timeline/Post/Post.js";
+import Suggestions from "../timeline/Suggestions/Follwers.js";
+import Trending from "../timeline/Suggestions/Trending";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTabs from "./ProfileTabs";
 
-function Profilepage() {
-  const [userId, setUserId] = useState(null); // Initialize userId state
-  const [profileData, setProfileData] = useState(null); // State for profile data
-  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
-  const [error, setError] = useState(null); // State for potential errors
+function Profilepage({user_id}) {
+
+  const [userId, setUserId] = useState(null); 
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [profileData, setProfileData] = useState(null); 
+  const [isLoading, setIsLoading] = useState(false); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    setUserId(storedUserId);
-    console.log(userId);
-    // Fetch profile data only if userId is available and not already fetching
-    if (storedUserId && !isLoading) {
+    setUserId(user_id);
+    if (user_id && !isLoading) {
+      const storedUserId = localStorage.getItem("userId");
+      setCurrentUserId(Number(storedUserId ));
       setIsLoading(true);
-      fetchProfileData(storedUserId);
+      fetchProfileData(user_id);
     }
-  }, []); // Dependency array includes both userId and isLoading
+  }, []); 
 
   const fetchProfileData = async (userId) => {
     try {
       const response = await fetch(`http://localhost:8080/profile/${userId}`); // Fetch profile data using the userId
-
       if (!response.ok) {
         throw new Error(`Network response was not ok: ${response.status}`);
       }
-
       const data = await response.json();
       setProfileData(data);
     } catch (error) {
       console.error("Error fetching profile data:", error);
       setError(error.message || "An error occurred while fetching profile data."); // Provide user-friendly error message
     } finally {
-      setIsLoading(false); // Always set loading state to false after fetching
+      setIsLoading(false); 
     }
   };
 
   return (
     <div className="mr-5 bg-black">
       {error ? (
-        <p>Error: {error}</p> // Display error message if available
+        <p>Error: {error}</p> 
       ) : isLoading ? (
-        <p>Loading profile...</p> // Display loading indicator while fetching
+        <p>Loading profile...</p> 
       ) : (
-        <>
-          <ProfileHeader userData={profileData} />
-          <ProfileTabs userData={profileData} />
-        </>
-      )}
-    </div>
+         <div className="flex w-full h-screen">
+          <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+            <ProfileHeader 
+              userData={profileData}
+              currentUserId= {currentUserId}/>
+            <ProfileTabs 
+              userData={profileData}
+              currentUserId= {currentUserId}/>
+          </div>
+          <div className="mx-auto flex-1/4 overflow-hidden">
+            <Suggestions />
+            <Trending />
+          </div>
+        </div>
+          )}
+        </div>
   );
 }
 

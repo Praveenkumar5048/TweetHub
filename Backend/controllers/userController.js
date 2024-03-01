@@ -4,7 +4,7 @@ export const getUserBasicDetails = async (req, res) => {
   const userId = req.params.userId; 
   try {
     
-    const getUserQuery = `SELECT user_id, displayname, profile_path FROM Users WHERE user_id = ?`;
+    const getUserQuery = `SELECT user_id,displayname, profile_path FROM Users WHERE user_id = ?`;
     const userData = await db.query(getUserQuery, [userId]);
 
     if (userData[0].length === 0) {
@@ -12,9 +12,9 @@ export const getUserBasicDetails = async (req, res) => {
     }
 
     const userDetails = {
-      userId: userData[0][0].user_id,
-      displayName: userData[0][0].displayname,
-      profilePath: userData[0][0].profile_path
+      user_id: userData[0][0].user_id,
+      displayname: userData[0][0].displayname,
+      profile_path: userData[0][0].profile_path
     };
 
     return res.status(200).json(userDetails);
@@ -66,7 +66,7 @@ export const getUserDetails = async (req, res) => {
       SELECT p.*, u.username AS posted_by_username
       FROM Posts AS p
       JOIN Users AS u ON p.user_id = u.user_id
-      WHERE p.user_id = ?`;
+      WHERE p.user_id = ? ORDER BY p.posted_at DESC`;
     const postDetailsData = await db.query(getPostDetailsQuery, [userId]);
 
     // Use map with a null check to avoid undefined values

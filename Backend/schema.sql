@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Users (
     email VARCHAR(255) NOT NULL UNIQUE,
     dob DATE,
     bio TEXT,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     profile_path VARCHAR(255) DEFAULT 'Uploads\profile_photos\Default_Profile_photo.png',
     registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -63,5 +63,15 @@ CREATE TABLE IF NOT EXISTS Follows (
     PRIMARY KEY (follower_id, following_id),
     FOREIGN KEY (follower_id) REFERENCES Users(user_id),
     FOREIGN KEY (following_id) REFERENCES Users(user_id)
+);
+
+-- Create the SavedPosts Table
+CREATE TABLE IF NOT EXISTS SavedPosts (
+  saved_post_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  post_id INT NOT NULL,
+  saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES Users(user_id),
+  FOREIGN KEY (post_id) REFERENCES Posts(post_id)
 );
 
