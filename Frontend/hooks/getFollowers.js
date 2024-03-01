@@ -1,57 +1,58 @@
-const BASE_URL = 'http://localhost:8080'; 
+// getFollowers.js
+import axios from 'axios';
+const BASE_URL = 'http://localhost:8080';
 
 export const followUser = async (followerId, followingId) => {
-    const response = await fetch(`${BASE_URL}/setFollowingUsers`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ followerId, followingId }),
-    });
-  
+  try {
+    const response = await axios.post(`${BASE_URL}/setFollowingUsers`, { followerId, followingId });
+
     if (response.status >= 200 && response.status < 300) {
       return true;
     } else {
       throw new Error(`Failed to follow user: ${response.status}`);
     }
-  };
-  
+  } catch (error) {
+    console.error('Error following user:', error);
+    throw new Error('Failed to follow user');
+  }
+};
 
 export const unfollowUser = async (followerId, followingId) => {
-  const response = await fetch(`${BASE_URL}/unsetFollowingUsers`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ followerId, followingId }),
-  });
+  try {
+    const response = await axios.post(`${BASE_URL}/unsetFollowingUsers`, { followerId, followingId });
 
-  if (!response.ok) {
+    if (response.status >= 200 && response.status < 300) {
+      return true;
+    } else {
+      throw new Error(`Failed to unfollow user: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Error unfollowing user:', error);
     throw new Error('Failed to unfollow user');
   }
 };
 
 export const checkIfFollowing = async (followerId, followingId) => {
-  const response = await fetch(`${BASE_URL}/checkFollowingStatus`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ followerId, followingId }),
-  });
+  try {
+    const response = await axios.post(`${BASE_URL}/checkFollowerStatus`, { followerId, followingId });
 
-  if (!response.ok) {
+    if (response.status >= 200 && response.status < 300) {
+      const result = response.data;
+      return result.isFollower;
+    } else {
+      throw new Error(`Failed to check follow status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Error checking follow status:', error);
     throw new Error('Failed to check follow status');
   }
-
-  const result = await response.json();
-  console.log(result);
-  return result.isFollowing;
 };
+
+
 
 export const getFollowers = async (userId) => {
   const response = await fetch(`${BASE_URL}/getFollowers/${userId}`);
-
+  
   if (!response.ok) {
     throw new Error('Failed to fetch followers');
   }

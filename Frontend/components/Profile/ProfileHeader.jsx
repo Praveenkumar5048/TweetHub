@@ -1,28 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import EditProfile from "./EditProfile";
-import { followUser, unfollowUser, checkIfFollowing } from "../../hooks/getFollowers"; 
+import Modal from './ModelList'; 
+import { followUser, unfollowUser, checkIfFollowing, getFollowers, getFollowing } from "../../hooks/getFollowers";
 
 const Profile = ({ userData, currentUserId }) => {
-
+  const [userId, setUserId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(null); // Initially set to null
+  const [isFollowing, setIsFollowing] = useState(null);
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   useEffect(() => {
     const checkFollowingStatus = async () => {
       try {
-          console.log(userData?.user.user_id,currentUserId)
-          const result = await checkIfFollowing(currentUserId, userData?.user.user_id);
-          console.log("function is called");
-          setIsFollowing(result ? "Following" : "Not Following");
-          console.log(result);
+        console.log(currentUserId, userData?.user.user_id);
+        const result = await checkIfFollowing(currentUserId, userData?.user.user_id);
+        console.log("checkFollowingStatus function is called");
+        setIsFollowing(result ? "Following" : "Not Following");
+        console.log(result);
       } catch (error) {
         console.error('Error checking follow status:', error);
-        setIsFollowing("Not Following");
+        setIsFollowing(null);
       }
     };
 
-    checkFollowingStatus();
-  }, []);
+    const fetchFollowersAndFollowing = async () => {
+      try {
+        const followersData = await getFollowers(userData?.user.user_id);
+        const followingData = await getFollowing(userData?.user.user_id);
+        setFollowers(followersData);
+        setFollowing(followingData);
+      } catch (error) {
+        console.error('Error fetching followers and following:', error);
+      }
+    };
+
+    if (userData) {
+      setUserId(userData.user.user_id);
+      checkFollowingStatus();
+      fetchFollowersAndFollowing();
+    }
+  }, [currentUserId, userData?.user.user_id]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -32,24 +52,26 @@ const Profile = ({ userData, currentUserId }) => {
     setIsModalOpen(false);
   };
 
+  const openFollowersModal = () => {
+    setShowFollowers(true);
+  };
+
+  const openFollowingModal = () => {
+    setShowFollowing(true);
+  };
+
   const handleFollowToggle = async () => {
-    console.log(isFollowing)
-
-    if(!isFollowing){
-      return ;
-    }
-
     try {
-      if (isFollowing == "Following") {
+      if (isFollowing === "Following") {
         const result = await unfollowUser(currentUserId, userData?.user.user_id);
-        console.log(result)
+        console.log(result);
       } else {
         const result = await followUser(currentUserId, userData?.user.user_id);
-        console.log(result)
+        console.log(result);
       }
 
-      setIsFollowing((prevIsFollowing) => (prevIsFollowing == "Following" ? "Not Following" : "Following"));
-      
+      setIsFollowing((prevIsFollowing) => (prevIsFollowing === "Following" ? "Not Following" : "Following"));
+      window.location.reload();
     } catch (error) {
       console.error('Error toggling follow status:', error);
     }
@@ -70,7 +92,7 @@ const Profile = ({ userData, currentUserId }) => {
           </div>
         </div>
         {
-          currentUserId == userData?.user.user_id ? (
+          currentUserId === userData?.user.user_id ? (
             <button
               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
               onClick={openModal}
@@ -78,36 +100,51 @@ const Profile = ({ userData, currentUserId }) => {
               Edit Profile
             </button>
           ) : (
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
-              onClick={handleFollowToggle}
-            >
-              {isFollowing && isFollowing ? "Following" : "Follow"}
-            </button>
+            <div className="flex items-center">
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mr-2"
+                onClick={handleFollowToggle}
+              >
+                {isFollowing === "Following" ? "Following" : "Follow"}
+              </button>
+            </div>
           )
         }
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="mt-10 flex items-center justify-between bg-gray-100 p-4 rounded-lg shadow-md">
         <div className="flex items-center">
-          <span className="text-xl font-bold">{userData?.posts[0]?.length}</span>
-          <span className="ml-2">Post</span>
+          <span className="text-xl font-bold text-blue-500">{userData?.posts[0]?.length}</span>
+          <span className="ml-2 text-gray-700">Posts</span>
         </div>
         <div className="flex items-center">
-          <span className="text-xl font-bold">{userData?.followers[0]?.length}</span>
-          <span className="ml-2">Followers</span>
+          <span className="text-xl font-bold cursor-pointer text-green-500" onClick={openFollowersModal}>
+            {userData?.followers[0]?.length}
+            <span className="ml-2 text-gray-700">Followers</span>
+          </span>
         </div>
         <div className="flex items-center">
-          <span className="text-xl font-bold">{userData?.following[0]?.length}</span>
-          <span className="ml-2">Following</span>
+          <span className="text-xl font-bold cursor-pointer text-purple-500" onClick={openFollowingModal}>
+            {userData?.following[0]?.length}
+            <span className="ml-2 text-gray-700">Following</span>
+          </span>
         </div>
       </div>
 
-      {isModalOpen && 
+
+      {isModalOpen &&
         <div className='mt-10'>
           <EditProfile isOpen={isModalOpen} onClose={closeModal} userData={userData} />
         </div>
       }
+
+      {showFollowers && (
+        <Modal isOpen={showFollowers} onClose={() => setShowFollowers(false)} listType="Followers" listData={followers} />
+      )}
+
+      {showFollowing && (
+        <Modal isOpen={showFollowing} onClose={() => setShowFollowing(false)} listType="Following" listData={following} />
+      )}
     </div>
   );
 };

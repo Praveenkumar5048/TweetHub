@@ -87,19 +87,24 @@ export const getFollowing = async (req, res) => {
   }
 };
 
+
 export const checkFollowerStatus = async (req, res) => {
   try {
     console.log(req.body);
     const { followerId, followingId } = req.body;
 
+    // Use COUNT to get the number of rows matching the condition
     const checkFollowerStatusQuery = `
-      SELECT * FROM Follows
+      SELECT COUNT(*) AS count FROM Follows
       WHERE follower_id = ? AND following_id = ?
     `;
 
     const result = await db.query(checkFollowerStatusQuery, [followerId, followingId]);
-    console.log(result);
-    return res.status(200).json({ isFollower: result[0].length > 0 });
+
+    // Check if the count is greater than 0 to determine if the user is a follower
+    const isFollower = result[0][0].count > 0;
+
+    return res.status(200).json({ isFollower });
   } catch (error) {
     console.error('Error Checking Follower Status:', error);
     return res.status(500).json({ error: 'Failed to check follower status' });
