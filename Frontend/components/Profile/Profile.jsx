@@ -18,7 +18,7 @@ function Profilepage({user_id}) {
     setUserId(user_id);
     if (user_id && !isLoading) {
       const storedUserId = localStorage.getItem("userId");
-      setCurrentUserId(storedUserId );
+      setCurrentUserId(Number(storedUserId ));
       setIsLoading(true);
       fetchProfileData(user_id);
     }
