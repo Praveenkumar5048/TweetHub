@@ -39,15 +39,16 @@ export const postData = async (req, res) => {
 export const getPosts = async (req, res) => {
   try {
     const getPostsQuery = `
-      SELECT * FROM Posts
-      ORDER BY posted_at DESC;
+    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
+    FROM Posts
+    LEFT JOIN Likes ON Posts.post_id = Likes.post_id
+    GROUP BY Posts.post_id
+    ORDER BY Posts.posted_at DESC    
     `;
 
     const result = await db.query(getPostsQuery);
-
-    // Extract post data from the result
     const posts = result[0];
-    //console.log(posts);
+    
     return res.status(200).json(posts);
   } catch (error) {
     console.error('Error Fetching Posts:', error);

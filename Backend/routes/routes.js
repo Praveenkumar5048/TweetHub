@@ -11,6 +11,9 @@ import { postData,getPosts } from "../controllers/postsController.js";
 
 import {getUserSuggestions, setFollowingUsers, getTrendingHashtags} from "../controllers/suggestionsController.js";
 
+import { deleteLike, insertLike, checkUserLike } from "../controllers/likesController.js"
+
+
 const router = express.Router();
 
 //auth routes
@@ -37,5 +40,9 @@ router.get('/getposts',getPosts);
 // fectching trending hashtags
 router.get('/trending/hashtags', getTrendingHashtags);
 
+// likes update and delete
+router.post('/deleteLike', deleteLike);
+router.post('/insertLike', insertLike);
+router.post('/checkUserLike', checkUserLike);
 
 export default router;

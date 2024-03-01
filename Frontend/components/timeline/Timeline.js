@@ -13,12 +13,12 @@ function Timeline() {
       try {
         const response = await axios.get("http://localhost:8080/getposts");
         const fetchedPosts = response.data;
-        //console.log("Fetched posts:", fetchedPosts);
+      
         const postsWithUserDetails = await Promise.all(
           fetchedPosts.map(async (post) => {
             const userResponse = await axios.get(`http://localhost:8080/userDetails/${post.user_id}`);
             const user = userResponse.data;
-            return { ...post, user }; // Combine post data with user details
+            return { ...post, user }; 
           })
         );
 
@@ -42,6 +42,8 @@ function Timeline() {
               postImage={post.media_url}
               content={post.content}
               timestamp={post.posted_at}
+              likes={post.like_count}
+              postId={post.post_id}
             />
           ))}
         </div>

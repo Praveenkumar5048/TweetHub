@@ -4,7 +4,7 @@ export const getUserBasicDetails = async (req, res) => {
   const userId = req.params.userId; 
   try {
     
-    const getUserQuery = `SELECT displayname, profile_path FROM Users WHERE user_id = ?`;
+    const getUserQuery = `SELECT user_id, displayname, profile_path FROM Users WHERE user_id = ?`;
     const userData = await db.query(getUserQuery, [userId]);
 
     if (userData[0].length === 0) {
@@ -12,6 +12,7 @@ export const getUserBasicDetails = async (req, res) => {
     }
 
     const userDetails = {
+      userId: userData[0][0].user_id,
       displayName: userData[0][0].displayname,
       profilePath: userData[0][0].profile_path
     };

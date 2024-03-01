@@ -1,12 +1,59 @@
+
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Avatar } from "@mui/material";
 import React from "react";
+import {useState, useEffect} from "react";
+import axios from 'axios';
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
-function Post({ user, postImage, content , timestamp}) {
+function Post({ user, postImage, content , timestamp, likes, postId}) {
+  
+  const [ liked, setLiked ] = useState(false);
+  const storedUserId = localStorage.getItem("userId");
+
+  useEffect (() => {
+    
+    const checkUserLike = async () => {
+      try {
+        const response = await axios.post('http://localhost:8080/checkUserLike', {storedUserId, postId });
+        if (response.status === 201) {
+          setLiked(true); 
+        }
+      } catch(error) {
+          console.error('Error checking like:', error);
+      }
+    }
+    checkUserLike();
+  }, []);
+
+    const handleLike = async () => {
+      try {
+        if (liked) {
+          // If the post is already liked, send a request to unlike it
+         
+          const response = await axios.post('http://localhost:8080/deleteLike', {storedUserId, postId });
+          if(response.status === 201){
+            setLiked(!liked);
+          }
+        } else {
+          // If the post is not liked, send a request to like it
+          const response = await axios.post('http://localhost:8080/insertLike', { storedUserId, postId });
+          if(response.status === 201){
+            setLiked(!liked);
+          }
+        }
+        // Toggle the liked state
+        
+      } catch (error) {
+        console.error('Error toggling like:', error);
+      }
+    };
+
+
   return (
     <div className="w-full max-w-2xl mx-auto my-4"> 
       <div className="flex justify-between items-center mb-4">
@@ -43,14 +90,24 @@ function Post({ user, postImage, content , timestamp}) {
       <div className="mt-4">
         <div className="flex justify-between items-center">
           <div className="flex">
-            <FavoriteBorderIcon className="postIcon p-1" />
+              {liked ? (
+              <FavoriteIcon
+                className="postIcon p-1 text-red-500 cursor-pointer"
+                onClick={handleLike}
+              />
+              ) : (
+              <FavoriteBorderIcon
+                className="postIcon p-1 cursor-pointer"
+                onClick={handleLike}
+              />
+              )}
             <ChatBubbleOutlineIcon className="postIcon p-1" />
           </div>
           <div>
             <BookmarkBorderIcon className="postIcon p-1" />
           </div>
         </div>
-        <p className="mt-2">Liked by 12 people.</p>
+        <p className="mt-2">Liked by {likes} people.</p>
       </div>
     </div>
   );

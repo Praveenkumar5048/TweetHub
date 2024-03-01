@@ -64,3 +64,4 @@ CREATE TABLE IF NOT EXISTS Follows (
     FOREIGN KEY (follower_id) REFERENCES Users(user_id),
     FOREIGN KEY (following_id) REFERENCES Users(user_id)
 );
+
