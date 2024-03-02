@@ -1,10 +1,14 @@
 import React from 'react';
 
 const TabButton = ({ onClick, isActive, icon, className, label }) => {
+  const baseClasses = `rounded-full py-2 px-4 flex items-center font-medium focus:outline-none`;
+
   return (
     <button
       onClick={onClick}
-      className={`rounded-xl flex items-center px-4 py-2 border-b-2 border-transparent text-base font-medium focus:outline-none focus:border-blue-500 transition duration-150 ease-in-out ${className} ${isActive ? 'border-blue-500' : ''}`}
+      className={`${baseClasses}
+        ${isActive ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}
+        ${className}`}
     >
       <span className="mr-2">{icon}</span>
       {label}

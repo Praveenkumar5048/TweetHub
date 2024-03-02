@@ -4,7 +4,6 @@ export const postData = async (req, res) => {
   try {
     const { userId, content, url, hashtags, location } = req.body;
 
-    // Insert post into Posts table
     const insertPostQuery = `
       INSERT INTO Posts (user_id, content, media_url)
       VALUES (?, ?, ?)
@@ -22,7 +21,7 @@ export const postData = async (req, res) => {
           VALUES (?, ?)
         `;
 
-        await db.query(insertHashtagQuery, [hashtag.trim(), postId]); // Trim whitespaces from hashtags
+        await db.query(insertHashtagQuery, [hashtag.trim(), postId]); 
       }
 
       return res.status(201).json({ message: 'Post created successfully!' });
@@ -35,7 +34,6 @@ export const postData = async (req, res) => {
   }
 };
 
-
 export const getPosts = async (req, res) => {
   try {
     const getPostsQuery = `
@@ -44,6 +42,71 @@ export const getPosts = async (req, res) => {
     const result = await db.query(getPostsQuery);
     const posts = result[0];
     
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error Fetching Posts:', error);
+    return res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+};
+
+export const getPerticularPost = async (req, res) => {
+  const postId = req.params.post_id;
+
+  try {
+    const getPostsQuery = `
+    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
+    FROM Posts
+    LEFT JOIN Likes ON  Likes.post_id = ?
+    WHERE  Posts.post_id = ?
+    `;
+
+    const result = await db.query(getPostsQuery, [postId, postId]);
+    const posts = result[0];
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error Fetching Posts:', error);
+    return res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+};
+
+export const getPostsOfUser = async (req, res) => {
+  const userId = req.params.user_id;
+
+  try {
+    const getPostsQuery = `
+      SELECT * FROM Posts
+      WHERE user_id = ?
+      ORDER BY posted_at DESC;
+    `;
+
+    const result = await db.query(getPostsQuery, [userId]);
+    const posts = result[0];
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error Fetching Posts:', error);
+    return res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+};
+
+
+export const getPostsByHashtag = async (req, res) => {
+
+  const hastagName = req.params.hashtag_name;
+  try {
+    const getPostsQuery = `
+    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
+    FROM Posts
+    LEFT JOIN Likes ON Posts.post_id = Likes.post_id
+    WHERE Posts.post_id IN (
+      SELECT post_id
+      FROM Hashtag
+      WHERE hashTag_name = ?
+    )
+    GROUP BY Posts.post_id
+    ORDER BY Posts.posted_at DESC`;
+
+    const result = await db.query(getPostsQuery,[hastagName]);
+    const posts = result[0];
     return res.status(200).json(posts);
   } catch (error) {
     console.error('Error Fetching Posts:', error);
