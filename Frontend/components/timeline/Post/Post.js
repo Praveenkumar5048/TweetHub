@@ -1,5 +1,3 @@
-
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Avatar } from "@mui/material";
 import React from "react";
 import {useState, useEffect} from "react";
@@ -63,9 +61,12 @@ function Post({ user, postImage, content , timestamp, likes, postId}) {
       </div>
       </div>
       <div class="p-6 rounded-lg shadow-md">
-        <p class="text-white text-base leading-6 text-center">{content}</p>
+        <a href={`/post/${postId}`}>
+          <p class="text-white text-base leading-6 text-center">{content}</p>
+        </a>
     </div>
     <div>
+    <a href={`/post/${postId}`}>
       {postImage && postImage.endsWith('.mp4') ? (
         <video className="w-full rounded-md" controls>
           <source src={`http://localhost:8080/${postImage}`} type="video/mp4" />
@@ -80,6 +81,7 @@ function Post({ user, postImage, content , timestamp, likes, postId}) {
           />
         )
       )}
+      </a>
     </div>
 
       <div className="mt-4">

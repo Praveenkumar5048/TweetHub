@@ -20,17 +20,34 @@ export const fetchPosts = async () => {
 
   export const fetchPostByPostId = async (postId) => {
     try {
-      const response = await axios.get(`${BASE_URL}/post/${postId}`); // Get post directly by post_id
+      const response = await axios.get(`${BASE_URL}/post/${postId}`); 
       const fetchedPost = response.data[0];
-      if (fetchedPost) { // Ensure a post was found
+      if (fetchedPost) { 
         const userResponse = await axios.get(`${BASE_URL}/userDetails/${fetchedPost.user_id}`); // Fetch user details
         const user = userResponse.data;
-        return { ...fetchedPost, user }; // Combine post and user details
+        return { ...fetchedPost, user }; 
       } else {
-        return null; // Return null if no post found for the ID
+        return null; 
       }
     } catch (error) {
       console.error("Error fetching post:", error);
-      throw error; // Re-throw for error handling in the component
+      throw error; 
+    }
+  };
+
+  export const fetchPostsByHashTag = async (hashTag_name) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/hashtag/${hashTag_name}`);
+      const fetchedPosts = response.data;
+      const postsWithUserDetails = await Promise.all(
+        fetchedPosts.map(async (post) => {
+          const userResponse = await axios.get(`${BASE_URL}/userDetails/${post.user_id}`);
+          const user = userResponse.data;
+          return { ...post, user }; 
+        })
+      );
+     return  postsWithUserDetails;
+    } catch (error) {
+      console.error("Error fetching posts:", error);
     }
   };

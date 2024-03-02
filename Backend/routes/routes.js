@@ -21,7 +21,8 @@ import {
   postData,
   getPosts,
   getPostsOfUser,
-  getPerticularPost
+  getPerticularPost,
+  getPostsByHashtag
 } from "../controllers/postsController.js";
 import {
   getUserSuggestions,
@@ -81,5 +82,6 @@ router.get("/getcomment/:post_id",getCommentsOfPost);
 
 // Fetching trending hashtags
 router.get("/trending/hashtags", getTrendingHashtags);
+router.get('/hashtag/:hashtag_name',getPostsByHashtag);
 
 export default router;

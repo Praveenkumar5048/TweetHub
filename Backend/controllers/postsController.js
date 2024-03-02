@@ -92,3 +92,29 @@ export const getPostsOfUser = async (req, res) => {
     return res.status(500).json({ error: 'Failed to fetch posts' });
   }
 };
+
+
+export const getPostsByHashtag = async (req, res) => {
+
+  const hastagName = req.params.hashtag_name;
+  try {
+    const getPostsQuery = `
+    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
+    FROM Posts
+    LEFT JOIN Likes ON Posts.post_id = Likes.post_id
+    WHERE Posts.post_id IN (
+      SELECT post_id
+      FROM Hashtag
+      WHERE hashTag_name = ?
+    )
+    GROUP BY Posts.post_id
+    ORDER BY Posts.posted_at DESC`;
+
+    const result = await db.query(getPostsQuery,[hastagName]);
+    const posts = result[0];
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error Fetching Posts:', error);
+    return res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+};

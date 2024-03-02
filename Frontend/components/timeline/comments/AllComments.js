@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Comment from './Comment'
 import { fetchCommentsByPostId } from "@/hooks/getCommentsDetails.js";
 
-function Commentline({postId}) {
+function Commentline({ postId }) {
+
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
