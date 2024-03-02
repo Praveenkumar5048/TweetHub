@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS Posts (
 
 -- Create the Likes table
 CREATE TABLE IF NOT EXISTS Likes (
-    like_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     post_id INT,
+    PRIMARY KEY (user_id, post_id),
     liked_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
@@ -63,5 +63,14 @@ CREATE TABLE IF NOT EXISTS Follows (
     PRIMARY KEY (follower_id, following_id),
     FOREIGN KEY (follower_id) REFERENCES Users(user_id),
     FOREIGN KEY (following_id) REFERENCES Users(user_id)
+);
+
+CREATE TABLE IF NOT EXISTS Saved (
+    user_id INT,
+    post_id INT,
+    PRIMARY KEY (user_id, post_id),
+    saved_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    FOREIGN KEY (post_id) REFERENCES Posts(post_id)
 );
 

@@ -36,16 +36,16 @@ export const deleteLike = async (req, res) => {
     try {
       const { storedUserId, postId } = req.body;
       
-      const checkUserLikeLikeQuery = ` SELECT * FROM Likes WHERE user_id = ? AND post_id = ?`;
+      const checkUserLikeLikeQuery = ` 
+      SELECT 
+      COUNT(*) AS like_count, 
+      (CASE WHEN EXISTS (SELECT 1 FROM Likes WHERE user_id = ? AND post_id = ?) THEN 1 ELSE 0 END) AS user_liked
+      FROM Likes 
+      WHERE post_id = ? `;
   
-      const [result] = await db.query(checkUserLikeLikeQuery, [storedUserId, postId]);
-      
-      if(result.length === 1) {
-        return res.status(201).json({ message: 'User as already Liked post' });
-      }
-      else {
-        return res.status(404).json({ message: 'User has not liked the post' });
-      }
+      const [result] = await db.query(checkUserLikeLikeQuery, [storedUserId, postId, postId]);
+   
+      return res.status(201).json({result});
    
     } catch (error) {
       console.error('Error checking like:', error);

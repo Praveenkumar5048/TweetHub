@@ -10,25 +10,31 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 
-function Post({ user, postImage, content , timestamp, likes, postId}) {
+function Post({ user, postImage, content , timestamp, postId}) {
   
   const [ liked, setLiked ] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+
   const storedUserId = localStorage.getItem("userId");
 
   useEffect (() => {
     
     const checkUserLike = async () => {
       try {
+        // This api call will check whether the user has liked the post or not?
+        // And it will also get back like count for that post
         const response = await axios.post('http://localhost:8080/checkUserLike', {storedUserId, postId });
-        if (response.status === 201) {
-          setLiked(true); 
+        const likesData = response.data.result[0];
+        if(likesData.user_liked){
+          setLiked(true);
         }
+        setLikesCount(likesData.like_count);
       } catch(error) {
           console.error('Error checking like:', error);
       }
     }
     checkUserLike();
-  }, []);
+  }, [liked]);
 
     const handleLike = async () => {
       try {
@@ -107,7 +113,7 @@ function Post({ user, postImage, content , timestamp, likes, postId}) {
             <BookmarkBorderIcon className="postIcon p-1" />
           </div>
         </div>
-        <p className="mt-2">Liked by {likes} people.</p>
+        <p className="mt-2">Liked by {likesCount} people.</p>
       </div>
     </div>
   );
