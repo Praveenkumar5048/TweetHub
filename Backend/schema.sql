@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS Follows (
     FOREIGN KEY (following_id) REFERENCES Users(user_id)
 );
 
-CREATE TABLE IF NOT EXISTS Saved (
+CREATE TABLE IF NOT EXISTS SavedPosts (
     user_id INT,
     post_id INT,
     PRIMARY KEY (user_id, post_id),
