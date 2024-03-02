@@ -49,10 +49,12 @@ function Sidenav() {
           <span className="ml-4 text-xl font-bold">Home</span>
         </button>
         </Link>
+        <Link href='/search'>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <SearchIcon />
           <span className="ml-4 text-xl font-bold">Search</span>
         </button>
+        </Link>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <ExploreIcon />
           <span className="ml-4 text-xl font-bold">Explore</span>
