@@ -15,9 +15,9 @@ export const deleteLike = async (req, res) => {
       console.error('Error deleting like:', error);
       return res.status(500).json({ error: 'Failed to delete like ' });
     }
-  };
+};
 
-  export const insertLike = async (req, res) => {
+export const insertLike = async (req, res) => {
     try {
       const { storedUserId, postId } = req.body;
    
@@ -30,9 +30,9 @@ export const deleteLike = async (req, res) => {
       console.error('Error liking Post:', error);
       return res.status(500).json({ error: 'Failed to like post' });
     }
-  };
+};
   
-  export const checkUserLike = async (req, res) => {
+export const checkUserLike = async (req, res) => {
     try {
       const { storedUserId, postId } = req.body;
       
@@ -51,6 +51,6 @@ export const deleteLike = async (req, res) => {
       console.error('Error checking like:', error);
       return res.status(500).json({ error: 'Failed to check like ' });
     }
-  };
+};
 
 
