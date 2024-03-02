@@ -21,6 +21,7 @@ import {
   postData,
   getPosts,
   getPostsOfUser,
+  getPerticularPost
 } from "../controllers/postsController.js";
 import {
   getUserSuggestions,
@@ -28,7 +29,17 @@ import {
 } from "../controllers/suggestionsController.js";
 import * as FollowerController from "../controllers/followController.js"; 
 
-import { deleteLike, insertLike, checkUserLike } from "../controllers/likesController.js"
+import { 
+  deleteLike, 
+  insertLike, 
+  checkUserLike 
+} from "../controllers/likesController.js"
+
+
+import { 
+  postComment,
+  getCommentsOfPost
+ } from "../controllers/commentsController.js";
 
 
 const router = express.Router();
@@ -57,12 +68,16 @@ router.post("/checkFollowerStatus", FollowerController.checkFollowerStatus); // 
 // Uploading posts
 router.post("/posts", postData);
 router.get("/getposts", getPosts);
+router.get("/post/:post_id", getPerticularPost);
 router.get("/userposts/:user_id", getPostsOfUser);
 
 // likes update and delete
 router.post('/deleteLike', deleteLike);
 router.post('/insertLike', insertLike);
 router.post('/checkUserLike', checkUserLike);
+
+router.post("/comment",postComment);
+router.get("/getcomment/:post_id",getCommentsOfPost);
 
 // Fetching trending hashtags
 router.get("/trending/hashtags", getTrendingHashtags);

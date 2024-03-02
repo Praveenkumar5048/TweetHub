@@ -4,31 +4,25 @@ import Post from "./Post/Post.js";
 import Suggestions from "./Suggestions/Follwers.js";
 import Trending from "./Suggestions/Trending";
 import axios from 'axios';
+import { fetchPosts } from "@/hooks/getPostsDetails.js";
 
 function Timeline() {
+
   const [posts, setPosts] = useState([]);
-
+  
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/getposts");
-        const fetchedPosts = response.data;
-      
-        const postsWithUserDetails = await Promise.all(
-          fetchedPosts.map(async (post) => {
-            const userResponse = await axios.get(`http://localhost:8080/userDetails/${post.user_id}`);
-            const user = userResponse.data;
-            return { ...post, user }; 
-          })
-        );
-
-        setPosts(postsWithUserDetails);
+        const fetchedPosts = await fetchPosts();
+        setPosts(fetchedPosts);
+        console.log(fetchedPosts);
       } catch (error) {
-        console.error("Error fetching posts:", error);
+        console.error('Error fetching posts:', error);
       }
     };
 
-    fetchPosts();
+    fetchData(); 
+
   }, []);
 
   return (
@@ -38,7 +32,7 @@ function Timeline() {
           {posts.map((post, index) => (
             <Post
               key={index}
-              user={post.user} // Send user object instead of user_id
+              user={post.user} 
               postImage={post.media_url}
               content={post.content}
               timestamp={post.posted_at}

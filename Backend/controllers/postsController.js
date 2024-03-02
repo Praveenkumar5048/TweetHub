@@ -54,6 +54,26 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPerticularPost = async (req, res) => {
+  const postId = req.params.post_id;
+
+  try {
+    const getPostsQuery = `
+    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
+    FROM Posts
+    LEFT JOIN Likes ON  Likes.post_id = ?
+    WHERE  Posts.post_id = ?
+    `;
+
+    const result = await db.query(getPostsQuery, [postId, postId]);
+    const posts = result[0];
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error Fetching Posts:', error);
+    return res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+};
+
 export const getPostsOfUser = async (req, res) => {
   const userId = req.params.user_id;
 
