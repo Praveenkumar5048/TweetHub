@@ -22,6 +22,8 @@ function Commentline({ postId }) {
   }, []);
 
   return (
+    <>
+      {comments.length > 0 ? (
         <div className="grid grid-cols-1 gap-4">
           {comments.map((comment, index) => (
             <Comment
@@ -32,6 +34,13 @@ function Commentline({ postId }) {
             />
           ))}
         </div>
+      ) : (
+        <p className="text-white mb-5 ">
+          Be the first user to share your thoughts and start a conversation! 
+        </p>
+
+      )}
+    </>
      
   );
 }

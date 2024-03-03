@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import Post from "./Post/Post.js";
 import Suggestions from "./Suggestions/Follwers.js";
 import Trending from "./Suggestions/Trending";
-import axios from 'axios';
 import { fetchPosts } from "@/hooks/getPostsDetails.js";
 
 function Timeline() {
@@ -41,7 +40,7 @@ function Timeline() {
           ))}
         </div>
       </div>
-      <div className="mx-auto flex-1/4 overflow-hidden">
+      <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
         <Suggestions />
         <Trending />
       </div>

@@ -2,11 +2,8 @@ import { db } from "../database.js";
 
 
 export const getUserSuggestions = async (req, res) => {
-
     const userId = req.params.userId; 
-   
     try {
-  
       const getSuggestionsQuery = `SELECT user_id, displayname, profile_path 
       FROM Users 
       WHERE user_id <> ?
@@ -17,9 +14,7 @@ export const getUserSuggestions = async (req, res) => {
       ) 
       LIMIT 6`;
       const [followerData] = await db.query(getSuggestionsQuery, [userId, userId])
-      
       return res.status(201).json({ followerData });
-      
     } catch(error) {
       console.error('Error fetching user details:', error);
       return res.status(500).json({ error: 'Internal server error' });
@@ -31,9 +26,7 @@ export const setFollowingUsers = async (req, res) => {
 
     const userId = req.body.userId;
     const followingId = req.body.followingId;
-
     try {
-     
       const query = `INSERT INTO Follows  VALUES(?, ?)`;
       const response = await db.query(query, [userId, followingId]);
       return res.status(201).json({ message: "Successfully followed user." });

@@ -109,3 +109,27 @@ export const updateUserDetails = async (req, res) => {
   }
 };
 
+
+export const getUserBySearch = async (req, res) => {
+  const searchQuery = req.params.query;
+
+  try {
+    const getUserQuery = `
+      SELECT user_id, displayname, username, bio, profile_path
+      FROM Users
+      WHERE displayname LIKE ? OR username LIKE ? 
+    `;
+
+    const result = await db.query(getUserQuery, [`%${searchQuery}%`, `%${searchQuery}%`]);
+    const users = result[0];
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: "No users found for the given query." });
+    }
+
+    return res.status(200).json(users);
+  } catch (error) {
+    console.error('Error fetching users by search query:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};

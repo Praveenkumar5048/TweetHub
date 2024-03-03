@@ -17,7 +17,7 @@ const SearchBox = ({ onSearchSubmit }) => {
   }, [searchTerm, onSearchSubmit]);
 
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="w-full my-4 mx-auto">
+    <form onSubmit={(e) => e.preventDefault()} className="w-full my-4 mx-auto text-black">
       <div className="relative">
         <input
           type="text"

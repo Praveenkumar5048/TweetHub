@@ -2,6 +2,7 @@ import { Avatar } from "@mui/material";
 import React from "react";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import UserSearchBox from "./SearchUser";
 
 function Suggestions() {
 
@@ -45,18 +46,19 @@ function Suggestions() {
 
   return (
     <div className="mt-8 mr-4">
+      <UserSearchBox/>
       <div className="font-bold text-gray-500">Suggestions for you</div>
       <div>
          {array.map((user) => (
          <div key={user.user_id} className="flex items-center justify-between mt-4">
-         <div className="flex items-center">
-         <span className="avatar">
-          <Avatar src={`http://localhost:8080/${user.profile_path}`} />
-         </span>
-         <span className="ml-2 text-white font-semibold">{user.displayname}</span>
-         </div>
+          <div className="flex items-center">
+            <span className="avatar">
+              <Avatar src={`http://localhost:8080/${user.profile_path}`} />
+            </span>
+            <span className="ml-2 text-white font-semibold">{user.displayname}</span>
+          </div>
          <button className="rounded-xl ml-12 text-blue-500 font-bold bg-transparent border-0 hover:text-white" onClick={ () => handleFollowing(user.user_id)}>
-         Follow
+          Follow
          </button>
          </div>
          ))}

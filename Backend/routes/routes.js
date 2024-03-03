@@ -8,6 +8,7 @@ import {
   getUserDetails,
   getUserBasicDetails,
   updateUserDetails,
+  getUserBySearch
 } from "../controllers/userController.js";
 import {
   handleFileUpload,
@@ -59,6 +60,7 @@ router.get("/userDetails/:userId", getUserBasicDetails);
 router.get("/profile/:userId", getUserDetails);
 router.post("/updateProfile", updateUserDetails);
 router.get("/suggestions/:userId", getUserSuggestions);
+router.get("/search/user/:query", getUserBySearch);
 
 // Inserting new follows of user
 router.post("/setFollowingUsers", FollowerController.setFollowingUsers);
