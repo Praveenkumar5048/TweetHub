@@ -49,7 +49,6 @@ export const checkIfFollowing = async (followerId, followingId) => {
 };
 
 
-
 export const getFollowers = async (userId) => {
   const response = await fetch(`${BASE_URL}/getFollowers/${userId}`);
   
