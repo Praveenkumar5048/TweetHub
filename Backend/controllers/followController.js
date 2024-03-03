@@ -3,14 +3,14 @@ import { db } from "../database.js";
 
 export const setFollowingUsers = async (req, res) => {
   try {
-    const { followerId, followingId } = req.body;
+    const { storedUserId, followingId } = req.body;
 
     const checkFollowQuery = `
       SELECT * FROM Follows
       WHERE follower_id = ? AND following_id = ?
     `;
 
-    const existingFollow = await db.query(checkFollowQuery, [followerId, followingId]);
+    const existingFollow = await db.query(checkFollowQuery, [storedUserId, followingId]);
 
     if (existingFollow[0].length > 0) {
       return res.status(400).json({ error: 'User is already being followed' });
@@ -21,7 +21,7 @@ export const setFollowingUsers = async (req, res) => {
       VALUES (?, ?)
     `;
 
-    await db.query(insertFollowQuery, [followerId, followingId]);
+    await db.query(insertFollowQuery, [storedUserId, followingId]);
 
     return res.status(201).json({ message: 'User followed successfully!' });
   } catch (error) {
@@ -90,7 +90,7 @@ export const getFollowing = async (req, res) => {
 
 export const checkFollowerStatus = async (req, res) => {
   try {
-    console.log(req.body);
+
     const { followerId, followingId } = req.body;
 
     // Use COUNT to get the number of rows matching the condition
