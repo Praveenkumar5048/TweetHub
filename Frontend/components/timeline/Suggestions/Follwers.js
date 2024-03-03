@@ -8,8 +8,15 @@ function Suggestions() {
 
   const [followingUserId, setFollowingUserId] = useState(null);
   const [array, setArray] = useState([]);
+  const [storedUserId, setStoredUserId] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') { 
+      const storedUserId = localStorage.getItem("userId");
+      setStoredUserId(storedUserId);
+    }
+  }, []);
   
-  const storedUserId = localStorage.getItem("userId");
 
   useEffect(() => {
  
@@ -29,7 +36,7 @@ function Suggestions() {
 
     fetchData();
    
-  }, [followingUserId]);
+  }, [followingUserId,storedUserId]);
   
   const handleFollowing = async (followingId) => {
 

@@ -3,7 +3,8 @@ import EditProfile from "./EditProfile";
 import Modal from './ModelList'; 
 import { followUser, unfollowUser, checkIfFollowing, getFollowers, getFollowing } from "../../hooks/getFollowers";
 
-const Profile = ({ userData, currentUserId }) => {
+const Profile = ({ userData, currentUserId ,updateOfUserDetails}) => {
+
   const [userId, setUserId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFollowing, setIsFollowing] = useState(null);
@@ -17,7 +18,7 @@ const Profile = ({ userData, currentUserId }) => {
       try {
         
         const result = await checkIfFollowing(currentUserId, userData?.user.user_id);
-        
+        console.log(result)
         setIsFollowing(result ? "Following" : "Not Following");
        
       } catch (error) {
@@ -71,7 +72,7 @@ const Profile = ({ userData, currentUserId }) => {
       }
 
       setIsFollowing((prevIsFollowing) => (prevIsFollowing === "Following" ? "Not Following" : "Following"));
-      window.location.reload();
+      updateOfUserDetails();
     } catch (error) {
       console.error('Error toggling follow status:', error);
     }

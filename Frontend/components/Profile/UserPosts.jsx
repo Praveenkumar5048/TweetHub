@@ -14,6 +14,7 @@ function UserPosts({userData}) {
           postImage={post.media_url}
           content={post.content}
           timestamp={post.posted_at}
+          postId={post.post_id}
         />
       ))}
     </div>
