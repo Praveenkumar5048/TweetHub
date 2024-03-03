@@ -7,16 +7,7 @@ import UserPosts from './UserPosts';
 
 const ProfileTabs = ({ userData ,currentUserId}) => {
   const [activeTab, setActiveTab] = useState("posts");
-  let user, followers, following, posts;
 
-  if (userData) {
-    ({ user, followers, following, posts } = userData);
-	
-  } else {
-    // Handle the case where userData is null
-    console.log("userData is null");
-  }
-  console.log(posts);
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
