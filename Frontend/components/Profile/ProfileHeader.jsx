@@ -15,11 +15,11 @@ const Profile = ({ userData, currentUserId }) => {
   useEffect(() => {
     const checkFollowingStatus = async () => {
       try {
-        console.log(currentUserId, userData?.user.user_id);
+        
         const result = await checkIfFollowing(currentUserId, userData?.user.user_id);
-        console.log("checkFollowingStatus function is called");
+        
         setIsFollowing(result ? "Following" : "Not Following");
-        console.log(result);
+       
       } catch (error) {
         console.error('Error checking follow status:', error);
         setIsFollowing(null);

@@ -7,6 +7,7 @@ import UserPosts from './UserPosts';
 
 const ProfileTabs = ({ userData ,currentUserId}) => {
   const [activeTab, setActiveTab] = useState("posts");
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };

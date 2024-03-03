@@ -34,7 +34,6 @@ function Timeline() {
               postImage={post.media_url}
               content={post.content}
               timestamp={post.posted_at}
-              likes={post.like_count}
               postId={post.post_id}
             />
           ))}

@@ -37,12 +37,7 @@ export const postData = async (req, res) => {
 export const getPosts = async (req, res) => {
   try {
     const getPostsQuery = `
-    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
-    FROM Posts
-    LEFT JOIN Likes ON Posts.post_id = Likes.post_id
-    GROUP BY Posts.post_id
-    ORDER BY Posts.posted_at DESC    
-    `;
+    SELECT * FROM Posts ORDER BY posted_at DESC `;
 
     const result = await db.query(getPostsQuery);
     const posts = result[0];

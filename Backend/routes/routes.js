@@ -35,7 +35,10 @@ import * as FollowerController from "../controllers/followController.js";
 import { 
   deleteLike, 
   insertLike, 
-  checkUserLike 
+  checkUserLike,
+  deleteBookmark,
+  addBookmark,
+  checkUserBookmark
 } from "../controllers/likesController.js"
 
 
@@ -81,6 +84,9 @@ router.get('/search',getPosts);
 router.post('/deleteLike', deleteLike);
 router.post('/insertLike', insertLike);
 router.post('/checkUserLike', checkUserLike);
+router.post('/deleteBookmark', deleteBookmark);
+router.post('/addBookmark', addBookmark);
+router.post('/checkUserBookmark', checkUserBookmark);
 
 router.post("/comment",postComment);
 router.get("/getcomment/:post_id",getCommentsOfPost);

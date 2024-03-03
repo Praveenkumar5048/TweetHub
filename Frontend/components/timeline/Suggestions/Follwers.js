@@ -6,15 +6,14 @@ import UserSearchBox from "./SearchUser";
 
 function Suggestions() {
 
-  const [userId, setUserId] = useState(null);
   const [followingUserId, setFollowingUserId] = useState(null);
   const [array, setArray] = useState([]);
+  
+  const storedUserId = localStorage.getItem("userId");
 
   useEffect(() => {
  
     const fetchData = async () => {
-      const storedUserId = localStorage.getItem("userId");
-      setUserId(storedUserId);
 
       if (storedUserId) {
         try {
@@ -35,7 +34,7 @@ function Suggestions() {
   const handleFollowing = async (followingId) => {
 
     try {
-      const response = await axios.post('http://localhost:8080/setFollowingUsers', {userId, followingId});
+      const response = await axios.post('http://localhost:8080/setFollowingUsers', {storedUserId, followingId});
       if(response.status === 201){
         setFollowingUserId(followingId);
       }

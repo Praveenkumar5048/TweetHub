@@ -23,7 +23,7 @@ function Profilepage({user_id}) {
       fetchProfileData(user_id);
     }
   }, []); 
-
+  
   const fetchProfileData = async (userId) => {
     try {
       const response = await fetch(`http://localhost:8080/profile/${userId}`); // Fetch profile data using the userId

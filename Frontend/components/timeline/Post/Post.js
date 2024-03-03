@@ -6,29 +6,54 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
-function Post({ user, postImage, content , timestamp, likes, postId}) {
+function Post({ user, postImage, content , timestamp, postId}) {
   
   const [ liked, setLiked ] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+  const [ bookmark, setBookmark ] = useState(false);
+
   const storedUserId = localStorage.getItem("userId");
 
   useEffect (() => {
     
     const checkUserLike = async () => {
       try {
+        // This api call will check whether the user has liked the post or not?
+        // And it will also get back like count for that post
         const response = await axios.post('http://localhost:8080/checkUserLike', {storedUserId, postId });
-        console.log(response)
-        if (response.status === 201) {
-          setLiked(true); 
+        const likesData = response.data.result[0];
+        if(likesData.user_liked){
+          setLiked(true);
         }
+        setLikesCount(likesData.like_count);
       } catch(error) {
           console.error('Error checking like:', error);
       }
     }
     checkUserLike();
-  }, []);
+  }, [liked]);
 
-    const handleLike = async () => {
+  useEffect (() => {
+    
+    const checkUserBookmark = async () => {
+      try {
+        
+        const response = await axios.post('http://localhost:8080/checkUserBookmark', {storedUserId, postId });
+        const bookmarksData = response.data.result;
+        if(bookmarksData.length !== 0){
+          setBookmark(true);
+        }
+        
+      } catch(error) {
+          console.error('Error checking bookmark:', error);
+      }
+    }
+    checkUserBookmark();
+  }, []);
+  
+  const handleLike = async () => {
       try {
         if (liked) {
           const response = await axios.post('http://localhost:8080/deleteLike', {storedUserId, postId });
@@ -45,7 +70,26 @@ function Post({ user, postImage, content , timestamp, likes, postId}) {
       } catch (error) {
         console.error('Error toggling like:', error);
       }
-    };
+  };
+
+  const handleBookmark = async () => {
+      try {
+        if (bookmark) {
+          const response = await axios.post('http://localhost:8080/deleteBookmark', {storedUserId, postId });
+          if(response.status === 201){
+            setBookmark(!bookmark);
+          }
+        } else {
+          const response = await axios.post('http://localhost:8080/addBookmark', { storedUserId, postId });
+          if(response.status === 201){
+            setBookmark(!bookmark);
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error toggling bookmark:', error);
+      }
+  }
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-4 mb-2"> 
@@ -101,10 +145,19 @@ function Post({ user, postImage, content , timestamp, likes, postId}) {
             <ChatBubbleOutlineIcon className="ml-4 postIcon text-white p-1 text-4xl" />
           </div>
           <div>
-            <BookmarkBorderIcon className="postIcon text-white p-1 text-4xl" />
+          { bookmark ? (
+            <BookmarkIcon
+            className="postIcon text-white p-1 text-4xl"
+            style={{ color: 'rgb(15, 288, 252)' }}
+            onClick={handleBookmark}
+          />
+          ) : (
+            <BookmarkBorderIcon className="postIcon text-white p-1 text-4xl"
+            onClick={handleBookmark} />
+          )} 
           </div>
         </div>
-        <p className="mt-2">Liked by {likes} people.</p>
+        <p className="mt-2">Liked by {likesCount} people.</p>
       </div>
     </div>
   );
