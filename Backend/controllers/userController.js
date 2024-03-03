@@ -79,7 +79,7 @@ export const getUserDetails = async (req, res) => {
       following,
       posts,
     };
-    console.log(response);
+
     res.status(200).json(response);
   } catch (error) {
     console.error("Error getting user details:", error);

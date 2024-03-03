@@ -54,7 +54,7 @@ export const getPerticularPost = async (req, res) => {
 
   try {
     const getPostsQuery = `
-    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
+    SELECT Posts.*, COUNT(Likes.user_id) AS like_count
     FROM Posts
     LEFT JOIN Likes ON  Likes.post_id = ?
     WHERE  Posts.post_id = ?
@@ -94,7 +94,7 @@ export const getPostsByHashtag = async (req, res) => {
   const hastagName = req.params.hashtag_name;
   try {
     const getPostsQuery = `
-    SELECT Posts.*, COUNT(Likes.like_id) AS like_count
+    SELECT Posts.*, COUNT(Likes.user_id) AS like_count
     FROM Posts
     LEFT JOIN Likes ON Posts.post_id = Likes.post_id
     WHERE Posts.post_id IN (
@@ -125,7 +125,7 @@ export const getPostsBySearchQuery = async (req, res) => {
 
   try {
     const getPostsQuery = `
-      SELECT DISTINCT Posts.*, COUNT(Likes.like_id) AS like_count
+      SELECT DISTINCT Posts.*, COUNT(Likes.user_id) AS like_count
       FROM Posts
       LEFT JOIN Likes ON Posts.post_id = Likes.post_id
       WHERE Posts.content LIKE ? OR 
