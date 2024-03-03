@@ -26,11 +26,11 @@ const ProfileTabs = ({ userData ,currentUserId}) => {
 						label="Posts"
 					/>
 					<TabButton
-						onClick={() => handleTabClick("saved")}
-						isActive={activeTab === "saved"}
+						onClick={() => handleTabClick("Bookmark")}
+						isActive={activeTab === "Bookmark"}
 						icon={<BsBookmark />}
-						className={`white ${activeTab === "saved" ? "bg-green-500 text-white" : ""}`}
-						label="Saved"
+						className={`white ${activeTab === "Bookmark" ? "bg-green-500 text-white" : ""}`}
+						label="Bookmark"
 					/>
 					<TabButton
 						onClick={() => handleTabClick("likes")}
@@ -41,14 +41,14 @@ const ProfileTabs = ({ userData ,currentUserId}) => {
 					/>
 				</Flex>
 				<div className='flex flex-col items-center mt-10'>
-					{activeTab === "posts" && <UserPosts userData={userData} />}
-					{activeTab === "saved" && <div>savedposts</div>}
-					{activeTab === "likes" && <div>likedposts</div>}
+					{activeTab === "posts" && <UserPosts postsData={userData?.posts[0]} />}
+					{activeTab === "Bookmark" && <UserPosts postsData={userData?.bookmarkes[0]}/>}
+					{activeTab === "likes" && <UserPosts postsData={userData?.likedPosts[0]}/>}
 				</div>
 			</>
 		) :(
 			<div className='flex flex-col items-center mt-10'>
-				<UserPosts userData={userData} />
+				<UserPosts userData={userData?.posts[0]} />
 			</div>
 		)
 	}
