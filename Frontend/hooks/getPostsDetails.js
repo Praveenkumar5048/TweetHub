@@ -68,3 +68,20 @@ export const fetchPosts = async () => {
       console.error("Error fetching posts by search query:", error);
     }
   };
+
+  export const fetchReels = async() => {
+    try {
+      const response = await axios.get(`${BASE_URL}/getreels`);
+      const fetchedPosts = response.data;
+      const postsWithUserDetails = await Promise.all(
+        fetchedPosts.map(async (post) => {
+          const userResponse = await axios.get(`${BASE_URL}/userDetails/${post.user_id}`);
+          const user = userResponse.data;
+          return { ...post, user }; 
+        })
+      );
+     return  postsWithUserDetails;
+    } catch (error) {
+      console.error("Error fetching Reels:", error);
+    }
+  }

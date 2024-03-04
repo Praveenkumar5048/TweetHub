@@ -44,39 +44,43 @@ function Sidenav() {
       <h1 className="text-3xl ml-5 font-mono  text-white my-8">Tweetverse</h1>
       <div className="flex flex-col gap-5">
         <Link href='/home'>
-        <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
-          <HomeIcon />
-          <span className="ml-4 text-xl font-bold">Home</span>
-        </button>
+          <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+            <HomeIcon />
+            <span className="ml-4 text-xl font-bold">Home</span>
+          </button>
         </Link>
         <Link href='/search'>
-        <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
-          <SearchIcon />
-          <span className="ml-4 text-xl font-bold">Search</span>
-        </button>
+          <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+            <SearchIcon />
+            <span className="ml-4 text-xl font-bold">Search</span>
+          </button>
         </Link>
         <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <ExploreIcon />
           <span className="ml-4 text-xl font-bold">Explore</span>
         </button>
-        <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
-          <SlideshowIcon />
-          <span className="ml-4 text-xl font-bold">Reels</span>
-        </button>
+        <Link href='/reels'>
+          <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+            <SlideshowIcon />
+            <span className="ml-4 text-xl font-bold">Reels</span>
+          </button>
+        </Link>
         <div className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
           <ChatIcon />
           <span className="ml-4 text-xl font-bold">Messages</span>
         </div>
-        <div className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
-          <AddCircleOutlineIcon />
-          <a href="/createpost"><span className="ml-4 text-xl font-bold">Post</span></a>
-        </div>
+        <Link href='/createpost'>
+          <button className="flex items-center text-white bg-transparent rounded-lg px-4 py-2 hover:bg-gray-500">
+            <AddCircleOutlineIcon />
+            <span className="ml-4 text-xl font-bold">Post</span>
+          </button>
+        </Link>
       </div>
       <Link href={`/profile/${userId}`}>
-      <div  className=" flex items-center rounded-lg  py-4 px-4 hover:bg-gray-500" >
-        <Avatar src={`http://localhost:8080/${userDetails.profile_path}`} alt='profile' className="mr-2 w-8 h-8" />
-        <span className="text-xl text-white">Profile</span>
-      </div>
+        <button  className=" flex items-center rounded-lg  py-4 px-4 hover:bg-gray-500" >
+          <Avatar src={`http://localhost:8080/${userDetails.profile_path}`} alt='profile' className="mr-2 w-8 h-8" />
+          <span className="text-xl text-white">Profile</span>
+        </button>
       </Link>
       
       <div className="fixed bottom-3">
