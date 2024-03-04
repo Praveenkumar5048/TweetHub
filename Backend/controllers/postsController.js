@@ -175,5 +175,20 @@ export const getPostsBySearchQuery = async (req, res) => {
   }
 };
 
+export const getReels = async (req, res) => {
+  try {
+    const getPostsQuery = `
+      SELECT * FROM Posts
+      WHERE media_url LIKE '%.mp4' OR media_url LIKE '%.avi' OR media_url LIKE '%.mov' 
+      ORDER BY posted_at DESC
+    `;
 
-// 
+    const result = await db.query(getPostsQuery);
+    const posts = result[0];
+
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error Fetching Posts:', error);
+    return res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+};

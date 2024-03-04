@@ -14,6 +14,7 @@ function Suggestions() {
     if (typeof window !== 'undefined') { 
       const storedUserId = localStorage.getItem("userId");
       setStoredUserId(storedUserId);
+      console.log(storedUserId);
     }
   }, []);
   
@@ -27,6 +28,7 @@ function Suggestions() {
           const response = await axios.get(`http://localhost:8080/suggestions/${storedUserId}`);
           if(response.status === 201){
             setArray(response.data.followerData);
+            console.log(response.data.followerData);
           }
         } catch (error) {
           console.error('Error fetching user details:', error);
@@ -36,7 +38,7 @@ function Suggestions() {
 
     fetchData();
    
-  }, [followingUserId]);
+  }, [followingUserId,storedUserId]);
   
   const handleFollowing = async (followingId) => {
 
