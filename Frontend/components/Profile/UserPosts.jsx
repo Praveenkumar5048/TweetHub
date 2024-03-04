@@ -39,7 +39,7 @@ function UserPosts({ postsData }) {
         posts.map((post, index) => (
         <Post
           key={index}
-          user={userData.user} 
+          user={post.user} 
           postImage={post.media_url}
           content={post.content}
           timestamp={post.posted_at}
