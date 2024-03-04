@@ -18,6 +18,7 @@ export const deleteLike = async (req, res) => {
 };
 
 export const insertLike = async (req, res) => {
+  console.log(req.body)
     try {
       const { storedUserId, postId } = req.body;
    

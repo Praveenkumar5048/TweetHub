@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Link from "next/link";
 
 function Trending() {
 
@@ -15,7 +14,6 @@ function Trending() {
         const response = await axios.get('http://localhost:8080/trending/hashtags');
         if(response.status === 201){
           setHashtags(response.data.hashtagData);
-          console.log(response.data.hashtagData)
         }
       } catch (error) {
           console.error('Error fetching Hashtags :', error);

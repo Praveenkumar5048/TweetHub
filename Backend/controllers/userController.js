@@ -39,7 +39,6 @@ export const getUserDetails = async (req, res) => {
 
     const user = userData[0][0];
 
-    // Get detailed follower information
     const getFollowersQuery = `
       SELECT u.*
       FROM Follows AS f
@@ -69,7 +68,6 @@ export const getUserDetails = async (req, res) => {
       WHERE p.user_id = ? ORDER BY p.posted_at DESC`;
     const postDetailsData = await db.query(getPostDetailsQuery, [userId]);
 
-    // Use map with a null check to avoid undefined values
     const posts = postDetailsData.map((post) => (post ? post : null));
     
     const bookmarkedDataQuery = `
@@ -86,7 +84,6 @@ export const getUserDetails = async (req, res) => {
 
     const likedPosts = await db.query(likedDataQuery, [userId]);
 
-    // Combine all data and send response
     const response = {
       user,
       followers,

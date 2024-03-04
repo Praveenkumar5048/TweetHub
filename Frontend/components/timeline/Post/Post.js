@@ -20,8 +20,6 @@ function Post({ user, postImage, content , timestamp, postId}) {
     
     const checkUserLike = async () => {
       try {
-        // This api call will check whether the user has liked the post or not?
-        // And it will also get back like count for that post
         const response = await axios.post('http://localhost:8080/checkUserLike', {storedUserId, postId });
         const likesData = response.data.result[0];
         if(likesData.user_liked){

@@ -38,12 +38,12 @@ function UserPosts({ postsData }) {
         ) : (
         posts.map((post, index) => (
         <Post
-        key={index}
-        user={post.user}
-        postImage={post.media_url}
-        content={post.content}
-        timestamp={post.posted_at}
-        postId={post.post_id}
+          key={index}
+          user={userData.user} 
+          postImage={post.media_url}
+          content={post.content}
+          timestamp={post.posted_at}
+          postId={post.post_id}
         />
         ))
         )}

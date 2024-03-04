@@ -40,6 +40,10 @@ function Profilepage({user_id}) {
     }
   };
 
+  const updateOfUserDetails = ()=> {
+    fetchProfileData(userId);
+  }
+
   return (
     <div className="mr-5 bg-black">
       {error ? (
@@ -51,7 +55,9 @@ function Profilepage({user_id}) {
           <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
             <ProfileHeader 
               userData={profileData}
-              currentUserId= {currentUserId}/>
+              currentUserId= {currentUserId}
+              updateOfUserDetails= {updateOfUserDetails}
+              />
             <ProfileTabs 
               userData={profileData}
               currentUserId= {currentUserId}/>

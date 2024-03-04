@@ -3,6 +3,9 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:8080';
 
 export const followUser = async (followerId, followingId) => {
+
+  console.log("function is called = followUser");
+  console.log(followerId, " : ", followingId);
   try {
     const response = await axios.post(`${BASE_URL}/setFollowingUsers`, { followerId, followingId });
 
@@ -18,6 +21,9 @@ export const followUser = async (followerId, followingId) => {
 };
 
 export const unfollowUser = async (followerId, followingId) => {
+
+  console.log("function is called = unfollowUser");
+
   try {
     const response = await axios.post(`${BASE_URL}/unsetFollowingUsers`, { followerId, followingId });
 
@@ -47,7 +53,6 @@ export const checkIfFollowing = async (followerId, followingId) => {
     throw new Error('Failed to check follow status');
   }
 };
-
 
 
 export const getFollowers = async (userId) => {
