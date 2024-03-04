@@ -31,16 +31,22 @@ function UserPosts({ postsData }) {
 
   return (
     <div className="grid grid-cols-1 gap-4">
-      {posts.map((post, index) => (
+       {posts.length === 0 ? (
+          <div className="bg-gray-200 p-4 text-black w-96">
+          <p>No posts to display.</p>
+          </div>
+        ) : (
+        posts.map((post, index) => (
         <Post
-          key={index}
-          user={post.user}
-          postImage={post.media_url}
-          content={post.content}
-          timestamp={post.posted_at}
-          postId={post.post_id}
+        key={index}
+        user={post.user}
+        postImage={post.media_url}
+        content={post.content}
+        timestamp={post.posted_at}
+        postId={post.post_id}
         />
-      ))}
+        ))
+        )}
     </div>
   );
 }

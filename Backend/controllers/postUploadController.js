@@ -18,8 +18,6 @@ export const handleFileUploading  = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: 'No file uploaded' });
         }
-
-        console.log(req.file.path);
         return res.status(201).json({path:req.file.path, message: 'File uploaded successfully' });
 
     } catch (error) {
