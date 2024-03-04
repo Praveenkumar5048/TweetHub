@@ -12,9 +12,8 @@ export const postData = async (req, res) => {
     const result = await db.query(insertPostQuery, [userId, content, url]);
 
     if (result[0].affectedRows === 1) {
-      const postId = result[0].insertId; // Get the newly inserted post ID
+      const postId = result[0].insertId; 
 
-      // Iterate through hashtags and insert them into HashTag table
       for (const hashtag of hashtags) {
         const insertHashtagQuery = `
           INSERT INTO HashTag (hashTag_name, post_id)
