@@ -32,7 +32,7 @@ function UserPosts({ postsData }) {
   return (
     <div className="grid grid-cols-1 gap-4">
        {posts.length === 0 ? (
-          <div className="bg-gray-200 p-4 text-black w-96">
+          <div className="p-10 text-white w-full text-3xl ">
           <p>No posts to display.</p>
           </div>
         ) : (
