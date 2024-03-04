@@ -1,24 +1,59 @@
-"use client"
 import React, { useState, useEffect } from "react";
-import Post from "../timeline/Post/Post.js";
-import axios from 'axios';
+import axios from "axios";
 
-function UserPosts({userData}) {
+import Post from "../timeline/Post/Post.js";
+
+function UserPosts({ postsData }) {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+      
+        const fetchedPosts = postsData;
+        const postsWithUserDetails = await Promise.all(
+          fetchedPosts.map(async (post) => {
+            const userResponse = await axios.get(`http://localhost:8080/userDetails/${post.user_id}`);
+            const user = userResponse.data;
+            return { ...post, user };
+          })
+        );
+        setPosts(postsWithUserDetails);
+      
+      } catch (error) {
+       
+        console.error('Error fetching posts:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-      <div className="grid grid-cols-1 gap-4">
-      {
-       userData?.posts[0]?.map((post, index) => (
+    <div className="grid grid-cols-1 gap-4">
+       {posts.length === 0 ? (
+        <div className="p-8 text-white text-xl">
+          <p>No posts to display.</p>
+          <div className="mt-4">
+            <p>It seems like there are no posts available at the moment.</p>
+            <p>Feel free to explore other sections of our website or check back later</p>
+          </div>
+        </div>
+        ) : (
+        posts.map((post, index) => (
         <Post
           key={index}
-          user={userData.user} 
+          user={post.user} 
           postImage={post.media_url}
           content={post.content}
           timestamp={post.posted_at}
           postId={post.post_id}
         />
-      ))}
+        ))
+        )}
     </div>
   );
 }
 
 export default UserPosts;
+

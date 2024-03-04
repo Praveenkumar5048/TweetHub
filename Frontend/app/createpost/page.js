@@ -22,6 +22,7 @@ const CreatePost = () => {
     }
   }, []);
 
+
   const handleUpload = async () => {
     const formData = new FormData()
     formData.append('file', mediaFile)
@@ -30,8 +31,7 @@ const CreatePost = () => {
      if (response.status === 201) {
        console.log('Upload successfully!');
        setUrl(response.data.path);
-       console.log(response.data.path);
-       console.log(url)
+
        alert('Upload successful!');
      } else {
        console.error('Failed to Upload:', response.status, response.statusText);
@@ -76,6 +76,7 @@ const CreatePost = () => {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
+        
          <div className="relative border border-gray-300 rounded-md px-2 py-1 flex items-center justify-between bg-white w-80">
             <input
             type="file"

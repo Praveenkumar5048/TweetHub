@@ -69,12 +69,28 @@ export const getUserDetails = async (req, res) => {
     const postDetailsData = await db.query(getPostDetailsQuery, [userId]);
 
     const posts = postDetailsData.map((post) => (post ? post : null));
+    
+    const bookmarkedDataQuery = `
+    SELECT * 
+    FROM Posts
+    WHERE post_id IN (SELECT post_id FROM Bookmarks WHERE user_id = ?)`;
+
+    const bookmarkes = await db.query(bookmarkedDataQuery, [userId]);
+
+    const likedDataQuery = `
+    SELECT * 
+    FROM Posts
+    WHERE post_id IN (SELECT post_id FROM Likes WHERE user_id = ?)`;
+
+    const likedPosts = await db.query(likedDataQuery, [userId]);
 
     const response = {
       user,
       followers,
       following,
       posts,
+      bookmarkes,
+      likedPosts
     };
 
     res.status(200).json(response);
