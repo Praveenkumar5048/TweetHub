@@ -33,12 +33,12 @@ function UserPosts({ postsData }) {
     <div className="grid grid-cols-1 gap-4">
        {posts.length === 0 ? (
         <div className="p-8 text-white text-xl">
-      <p>No posts to display.</p>
-      <div className="mt-4">
-        <p>It seems like there are no posts available at the moment.</p>
-        <p>Feel free to explore other sections of our website or check back later</p>
-      </div>
-    </div>
+          <p>No posts to display.</p>
+          <div className="mt-4">
+            <p>It seems like there are no posts available at the moment.</p>
+            <p>Feel free to explore other sections of our website or check back later</p>
+          </div>
+        </div>
         ) : (
         posts.map((post, index) => (
         <Post
