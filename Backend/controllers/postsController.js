@@ -1,8 +1,14 @@
 import { db } from "../database.js";
 
+const extractHashtags = (content) => {
+  const regex = /#(\w+)/g;
+  return content.match(regex) || [];
+};
+
 export const postData = async (req, res) => {
   try {
-    const { userId, content, url, hashtags, location } = req.body;
+    const { userId, content, url, location } = req.body;
+    const hashtags = extractHashtags(content); 
 
     const insertPostQuery = `
       INSERT INTO Posts (user_id, content, media_url)
@@ -32,6 +38,7 @@ export const postData = async (req, res) => {
     return res.status(500).json({ error: 'Failed to create post' });
   }
 };
+
 
 export const getPosts = async (req, res) => {
   try {

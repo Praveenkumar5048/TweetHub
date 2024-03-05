@@ -49,7 +49,7 @@ const CreatePost = () => {
 
      try {
         const response = await axios.post('http://localhost:8080/posts', 
-        {userId, content, url,hashtags, location} );
+        {userId, content, url,  location} );
         if (response.status === 201) {
           console.log('User posted successfully!');
           router.push('/home');

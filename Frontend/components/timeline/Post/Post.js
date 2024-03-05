@@ -107,6 +107,17 @@ function Post({ user, postImage, content , timestamp, postId,currentUserId,updat
       console.error('Error fetching posts:', error);
     }
   }
+  
+  const highlightHashtags = (text) => {
+    // Regular expression to match hashtags
+    const hashtagRegex = /(^|\s)(#\w+)/g;
+    return text.split(hashtagRegex).map((word, index) => {
+      if (word.match(hashtagRegex)) {
+        return <span key={index} style={{ color: 'blue' }}>{word}</span>;
+      }
+      return word;
+    });
+  };
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-4 mb-2 bg-white rounded-lg shadow-md">
@@ -118,7 +129,11 @@ function Post({ user, postImage, content , timestamp, postId,currentUserId,updat
         <span className="text-gray-500">{new Date(timestamp).toLocaleDateString()}</span>
       </div>
       <div className="p-4">
-        <p className="text-base text-black leading-6">{content}</p>
+
+        <div className="text-base text-black leading-6">
+          {highlightHashtags(content)}
+        </div>
+
         {postImage && (
           <a href={`/post/${postId}`}>
             {postImage.endsWith('.mp4') ? (
