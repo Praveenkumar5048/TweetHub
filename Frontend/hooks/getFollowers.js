@@ -2,12 +2,12 @@
 import axios from 'axios';
 const BASE_URL = 'http://localhost:8080';
 
-export const followUser = async (followerId, followingId) => {
+export const followUser = async (storedUserId, followingId) => {
 
   console.log("function is called = followUser");
-  console.log(followerId, " : ", followingId);
+  console.log(storedUserId, " : ", followingId);
   try {
-    const response = await axios.post(`${BASE_URL}/setFollowingUsers`, { followerId, followingId });
+    const response = await axios.post(`${BASE_URL}/setFollowingUsers`, { storedUserId, followingId });
 
     if (response.status >= 200 && response.status < 300) {
       return true;

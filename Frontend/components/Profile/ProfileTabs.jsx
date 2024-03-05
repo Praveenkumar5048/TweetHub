@@ -5,7 +5,7 @@ import { BsGrid3X3, BsBookmark, BsSuitHeart } from "react-icons/bs";
 import TabButton from './TabButton';
 import UserPosts from './UserPosts';
 
-const ProfileTabs = ({ userData ,currentUserId}) => {
+const ProfileTabs = ({ userData ,currentUserId,updateOfUserDetails}) => {
   const [activeTab, setActiveTab] = useState("posts");
 
   const handleTabClick = (tab) => {
@@ -41,9 +41,22 @@ const ProfileTabs = ({ userData ,currentUserId}) => {
 					/>
 				</Flex>
 				<div className='flex flex-col items-center mt-10'>
-					{activeTab === "posts" && <UserPosts postsData={userData?.posts[0]} />}
-					{activeTab === "Bookmark" && <UserPosts postsData={userData?.bookmarkes[0]}/>}
-					{activeTab === "likes" && <UserPosts postsData={userData?.likedPosts[0]}/>}
+					{activeTab === "posts" && 
+						<UserPosts 
+							postsData={userData?.posts[0]} 
+							currentUserId={currentUserId}
+							updateOfUserDetails={updateOfUserDetails}
+						/>
+					}
+					{activeTab === "Bookmark" &&
+						 <UserPosts 
+						 	postsData={userData?.bookmarkes[0]}
+						/>
+					}
+					{activeTab === "likes" && 
+						<UserPosts 
+							postsData={userData?.likedPosts[0]}
+						/>}
 				</div>
 			</>
 		) :(

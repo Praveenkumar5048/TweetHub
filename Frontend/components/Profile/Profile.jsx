@@ -59,10 +59,13 @@ function Profilepage({user_id}) {
               updateOfUserDetails= {updateOfUserDetails}
               />
             <ProfileTabs 
+              key={profileData?.posts[0].length}
               userData={profileData}
-              currentUserId= {currentUserId}/>
+              currentUserId= {currentUserId}
+              updateOfUserDetails= {updateOfUserDetails}
+              />
           </div>
-          <div className="mx-auto flex-1/4 overflow-hidden">
+          <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
             <Suggestions />
             <Trending />
           </div>

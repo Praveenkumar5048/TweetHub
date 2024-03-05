@@ -12,9 +12,8 @@ export const postData = async (req, res) => {
     const result = await db.query(insertPostQuery, [userId, content, url]);
 
     if (result[0].affectedRows === 1) {
-      const postId = result[0].insertId; // Get the newly inserted post ID
+      const postId = result[0].insertId; 
 
-      // Iterate through hashtags and insert them into HashTag table
       for (const hashtag of hashtags) {
         const insertHashtagQuery = `
           INSERT INTO HashTag (hashTag_name, post_id)
@@ -176,5 +175,45 @@ export const getPostsBySearchQuery = async (req, res) => {
   }
 };
 
+export const getReels = async (req, res) => {
+  try {
+    const getPostsQuery = `
+      SELECT * FROM Posts
+      WHERE media_url LIKE '%.mp4' OR media_url LIKE '%.avi' OR media_url LIKE '%.mov' 
+      ORDER BY posted_at DESC
+    `;
 
-// 
+    const result = await db.query(getPostsQuery);
+    const posts = result[0];
+
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.error('Error Fetching Posts:', error);
+    return res.status(500).json({ error: 'Failed to fetch posts' });
+  }
+};
+
+
+export const deletePost = async (req, res) => {
+  const postId = req.params.post_id;
+
+  try {
+    const deletePostQuery = `
+      DELETE FROM Posts
+      WHERE post_id = ?
+    `;
+
+    const result = await db.query(deletePostQuery, [postId]);
+
+    if (result[0].affectedRows === 1) {
+      // If the post is deleted successfully
+      return res.status(200).json({ message: 'Post deleted successfully!' });
+    } else {
+      // If the post with the specified post_id does not exist
+      return res.status(404).json({ error: 'Post not found' });
+    }
+  } catch (error) {
+    console.error('Error Deleting Post:', error);
+    return res.status(500).json({ error: 'Failed to delete post' });
+  }
+};

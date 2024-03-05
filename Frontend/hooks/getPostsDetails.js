@@ -68,3 +68,35 @@ export const fetchPosts = async () => {
       console.error("Error fetching posts by search query:", error);
     }
   };
+
+  export const fetchReels = async() => {
+    try {
+      const response = await axios.get(`${BASE_URL}/getreels`);
+      const fetchedPosts = response.data;
+      const postsWithUserDetails = await Promise.all(
+        fetchedPosts.map(async (post) => {
+          const userResponse = await axios.get(`${BASE_URL}/userDetails/${post.user_id}`);
+          const user = userResponse.data;
+          return { ...post, user }; 
+        })
+      );
+     return  postsWithUserDetails;
+    } catch (error) {
+      console.error("Error fetching Reels:", error);
+    }
+  }
+
+  export const deletePost = async (postId) => {
+    try {
+      const response = await axios.delete(`${BASE_URL}/posts/${postId}`);
+      if (response.status === 200) {
+        return { success: true, message: 'Post deleted successfully!' };
+      } else {
+        return { success: false, error: 'Failed to delete post' };
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      return { success: false, error: 'Failed to delete post' };
+    }
+  };
+  
