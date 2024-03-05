@@ -36,7 +36,7 @@ function Suggestions() {
 
     fetchData();
    
-  }, [followingUserId]);
+  }, [followingUserId, storedUserId]);
   
   const handleFollowing = async (followingId) => {
 
