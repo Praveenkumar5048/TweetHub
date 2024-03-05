@@ -13,7 +13,6 @@ const CreatePost = () => {
   const [content, setContent] = useState('');
   const [mediaFile, setMediaFile] = useState(null);
   const [url,setUrl]=useState('');
-  const [hashtags, setHashtags] = useState([]);
   const [location, setLocation] = useState('');
 
   useEffect(() => {
@@ -99,13 +98,6 @@ const CreatePost = () => {
             onClick={handleUpload}> Upload
           </button>
 
-            <input
-                className="rounded-md p-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-500"
-                placeholder="Enter hashtags (separated by commas)"
-                value={hashtags.join(', ')} // Convert the array back to a string for display
-                onChange={(e) => setHashtags(e.target.value.split(',').map(tag => tag.trim()))}
-                type="text"
-            />
             <input
               className="rounded-md p-2 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-500"
               placeholder="Your location (Optional)"
