@@ -33,7 +33,7 @@ function UserPosts({ postsData ,currentUserId,updateOfUserDetails}) {
   return (
     <div className="grid grid-cols-1 gap-4">
        {posts.length === 0 ? (
-        <div className="p-8 text-white text-xl">
+        <div className="p-8 text-white text-xl mt-16">
           <p>No posts to display.</p>
           <div className="mt-4">
             <p>It seems like there are no posts available at the moment.</p>

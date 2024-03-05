@@ -2,7 +2,8 @@ import { db } from "../database.js";
 
 const extractHashtags = (content) => {
   const regex = /#(\w+)/g;
-  return content.match(regex) || [];
+  const matches = content.match(regex) || [];
+  return matches.map(match => match.slice(1)); 
 };
 
 export const postData = async (req, res) => {

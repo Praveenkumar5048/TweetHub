@@ -113,7 +113,7 @@ function Post({ user, postImage, content , timestamp, postId,currentUserId,updat
     const hashtagRegex = /(^|\s)(#\w+)/g;
     return text.split(hashtagRegex).map((word, index) => {
       if (word.match(hashtagRegex)) {
-        return <span key={index} style={{ color: 'blue' }}>{word}</span>;
+        return <a key={index} href={`/hashtag/${word.slice(1)}`} style={{ color: 'blue' }}>{word}</a>;
       }
       return word;
     });
@@ -175,3 +175,6 @@ function Post({ user, postImage, content , timestamp, postId,currentUserId,updat
 }
 
 export default Post;
+
+
+

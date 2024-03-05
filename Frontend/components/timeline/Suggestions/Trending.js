@@ -27,7 +27,7 @@ function Trending() {
 
   return (
     <div className="mt-5 p-4 rounded-md shadow-md text-white">
-      <h2 className="text-lg font-semibold mb-4 text-gray-500">Trending</h2>
+      <h2 className="text-lg font-semibold mb-4 text-gray-500">Trending hashtags</h2>
       <div className="grid grid-cols-1 gap-4">
       {hashtags.map((hashtag, index) => (
         <div key={index} className="flex items-center justify-between px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 mb-2">
