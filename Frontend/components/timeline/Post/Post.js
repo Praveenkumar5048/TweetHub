@@ -7,9 +7,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import DeleteIcon from '@mui/icons-material/DeleteRounded';
+import { deletePost } from "@/hooks/getPostsDetails";
 
-function Post({ user, postImage, content , timestamp, postId}) {
-  
+function Post({ user, postImage, content , timestamp, postId,currentUserId,updateOfUserDetails}) {
+
   const [ liked, setLiked ] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [ bookmark, setBookmark ] = useState(false);
@@ -89,49 +91,70 @@ function Post({ user, postImage, content , timestamp, postId}) {
       }
   }
 
+  const handleDelete = async() => {
+    alert("are you really deleteing this ?");
+    try {
+      const response = await deletePost(postId);
+      console.log(response.success)
+      if(response.success){
+        console.log("post deleted successfully");
+        updateOfUserDetails();
+        console.log("updateOfUserDetails is Called");
+      }else{
+        console.log("deletion failed")
+      }
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    }
+  }
+
   return (
     <div className="w-full max-w-2xl mx-auto mt-4 mb-2 bg-white rounded-lg shadow-md">
-  <div className="flex justify-between items-center px-4 py-2">
-    <div className="flex items-center">
-      <Avatar src={`http://localhost:8080/${user.profile_path}`} alt='skpsmpsap' className="mr-2 w-8 h-8" />
-      <a href={`/profile/${user.user_id}`} className="text-blue-500 hover:underline">{user.displayname}</a>
-    </div>
-    <span className="text-gray-500">{new Date(timestamp).toLocaleDateString()}</span>
-  </div>
-  <div className="p-4">
-    <p className="text-base text-black leading-6">{content}</p>
-    {postImage && (
-      <a href={`/post/${postId}`}>
-        {postImage.endsWith('.mp4') ? (
-          <video className="w-full rounded-md mt-4" controls>
-            <source src={`http://localhost:8080/${postImage}`} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        ) : (
-          <img className="w-full rounded-md mt-4" src={`http://localhost:8080/${postImage}`} alt="Post Image" />
+      <div className="flex justify-between items-center px-4 py-2">
+        <div className="flex items-center">
+          <Avatar src={`http://localhost:8080/${user.profile_path}`} alt='skpsmpsap' className="mr-2 w-8 h-8" />
+          <a href={`/profile/${user.user_id}`} className="text-blue-500 hover:underline">{user.displayname}</a>
+        </div>
+        <span className="text-gray-500">{new Date(timestamp).toLocaleDateString()}</span>
+      </div>
+      <div className="p-4">
+        <p className="text-base text-black leading-6">{content}</p>
+        {postImage && (
+          <a href={`/post/${postId}`}>
+            {postImage.endsWith('.mp4') ? (
+              <video className="w-full rounded-md mt-4" controls>
+                <source src={`http://localhost:8080/${postImage}`} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img className="w-full rounded-md mt-4" src={`http://localhost:8080/${postImage}`} alt="Post Image" />
+            )}
+          </a>
         )}
-      </a>
-    )}
+      </div>
+      <div className="flex justify-between items-center px-4 py-2 border-t">
+        <div className="flex items-center space-x-4">
+          {liked ? (
+            <FavoriteIcon className="text-red-500 cursor-pointer w-6 h-6" onClick={handleLike} />
+          ) : (
+            <FavoriteBorderIcon className="text-gray-500 cursor-pointer w-6 h-6" onClick={handleLike} />
+          )}
+          <ChatBubbleOutlineIcon className="text-gray-500 cursor-pointer w-6 h-6" />
+        </div>
+        <div>
+          {bookmark ? (
+              <BookmarkIcon className="text-blue-500 cursor-pointer w-6 h-6" onClick={handleBookmark} />
+          ) : (
+              <BookmarkBorderIcon className="text-gray-500 cursor-pointer w-6 h-6" onClick={handleBookmark} />
+          )}
+          {
+            currentUserId && 
+            <DeleteIcon className="text-red-500 cursor-pointer w-6 h-6" onClick={handleDelete} />
+          }
+        </div>
+      </div>
+      <p className="px-4 py-2 text-sm text-gray-500">Liked by {likesCount} people.</p>
   </div>
-  <div className="flex justify-between items-center px-4 py-2 border-t">
-    <div className="flex items-center space-x-4">
-      {liked ? (
-        <FavoriteIcon className="text-red-500 cursor-pointer w-6 h-6" onClick={handleLike} />
-      ) : (
-        <FavoriteBorderIcon className="text-gray-500 cursor-pointer w-6 h-6" onClick={handleLike} />
-      )}
-      <ChatBubbleOutlineIcon className="text-gray-500 cursor-pointer w-6 h-6" />
-    </div>
-    <div>
-      {bookmark ? (
-        <BookmarkIcon className="text-blue-500 cursor-pointer w-6 h-6" onClick={handleBookmark} />
-      ) : (
-        <BookmarkBorderIcon className="text-gray-500 cursor-pointer w-6 h-6" onClick={handleBookmark} />
-      )}
-    </div>
-  </div>
-  <p className="px-4 py-2 text-sm text-gray-500">Liked by {likesCount} people.</p>
-</div>
 
   );
 }

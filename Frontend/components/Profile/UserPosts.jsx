@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Post from "../timeline/Post/Post.js";
 
-function UserPosts({ postsData }) {
+function UserPosts({ postsData ,currentUserId,updateOfUserDetails}) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ function UserPosts({ postsData }) {
     fetchData();
   }, []);
 
+  
   return (
     <div className="grid grid-cols-1 gap-4">
        {posts.length === 0 ? (
@@ -41,14 +42,16 @@ function UserPosts({ postsData }) {
         </div>
         ) : (
         posts.map((post, index) => (
-        <Post
-          key={index}
-          user={post.user} 
-          postImage={post.media_url}
-          content={post.content}
-          timestamp={post.posted_at}
-          postId={post.post_id}
-        />
+          <Post
+            key={index}
+            user={post.user} 
+            postImage={post.media_url}
+            content={post.content}
+            timestamp={post.posted_at}
+            postId={post.post_id}
+            currentUserId={currentUserId}
+            updateOfUserDetails={updateOfUserDetails}
+          />
         ))
         )}
     </div>

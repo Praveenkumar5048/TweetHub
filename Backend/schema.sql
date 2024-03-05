@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS Follows (
     FOREIGN KEY (following_id) REFERENCES Users(user_id)
 );
 
+-- Create the Bookmarks table
 CREATE TABLE IF NOT EXISTS Bookmarks (
     user_id INT,
     post_id INT,
@@ -74,3 +75,24 @@ CREATE TABLE IF NOT EXISTS Bookmarks (
     FOREIGN KEY (post_id) REFERENCES Posts(post_id)
 );
 
+-- Createing the Triggers
+CREATE TRIGGER delete_likes_on_post_delete
+BEFORE DELETE ON Posts
+FOR EACH ROW
+DELETE FROM Likes WHERE post_id = OLD.post_id;
+
+CREATE TRIGGER delete_comments_on_post_delete
+BEFORE DELETE ON Posts
+FOR EACH ROW
+DELETE FROM Comments WHERE post_id = OLD.post_id;
+
+CREATE TRIGGER delete_hashtags_on_post_delete
+BEFORE DELETE ON Posts
+FOR EACH ROW
+DELETE FROM HashTag WHERE post_id = OLD.post_id;
+
+
+CREATE TRIGGER delete_bookmarks_on_post_delete
+BEFORE DELETE ON Posts
+FOR EACH ROW
+DELETE FROM Bookmarks WHERE post_id = OLD.post_id;

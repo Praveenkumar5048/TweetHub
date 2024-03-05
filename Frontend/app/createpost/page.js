@@ -3,6 +3,8 @@ import React, { useState,useEffect } from 'react';
 import Sidenav from "../../components/navigation/Sidenav";
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
+import Suggestions from '@/components/timeline/Suggestions/Follwers';
+import Trending from '@/components/timeline/Suggestions/Trending';
 
 const CreatePost = () => {
 
@@ -66,8 +68,8 @@ const CreatePost = () => {
       <div className="relative flex-shrink-0 w-1/5 px-4 py-8">
         <Sidenav />
       </div>
-      <div className="flex-grow">
-        <div className="container mt-10  mx-auto px-4 py-8 w-3/5 bg-white rounded-lg shadow-md">
+      <div className="mx-auto w-2/5">
+        <div className="container mt-10 py-8 bg-white rounded-lg shadow-md">
           <h1 className="text-3xl font-bold mb-6 text-center">Create a Post</h1>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4 px-4 pb-8">
             <textarea
@@ -119,6 +121,10 @@ const CreatePost = () => {
             </button>
           </form>
         </div>
+      </div>
+      <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+        <Suggestions />
+        <Trending />
       </div>
     </div>
   </div>

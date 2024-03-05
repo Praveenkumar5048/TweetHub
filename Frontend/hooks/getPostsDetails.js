@@ -85,3 +85,18 @@ export const fetchPosts = async () => {
       console.error("Error fetching Reels:", error);
     }
   }
+
+  export const deletePost = async (postId) => {
+    try {
+      const response = await axios.delete(`${BASE_URL}/posts/${postId}`);
+      if (response.status === 200) {
+        return { success: true, message: 'Post deleted successfully!' };
+      } else {
+        return { success: false, error: 'Failed to delete post' };
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      return { success: false, error: 'Failed to delete post' };
+    }
+  };
+  

@@ -25,7 +25,8 @@ import {
   getPerticularPost,
   getPostsByHashtag,
   getPostsBySearchQuery,
-  getReels
+  getReels,
+  deletePost
 } from "../controllers/postsController.js";
 import {
   getUserSuggestions,
@@ -80,7 +81,8 @@ router.get("/post/:post_id", getPerticularPost);
 router.get("/userposts/:user_id", getPostsOfUser);
 router.get('/search/:search_query',getPostsBySearchQuery);
 router.get('/search',getPosts);
-router.get('/getreels', getReels)
+router.get('/getreels', getReels);
+router.delete('/posts/:post_id', deletePost);
 
 // likes update and delete
 router.post('/deleteLike', deleteLike);
