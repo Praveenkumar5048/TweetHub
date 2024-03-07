@@ -14,6 +14,7 @@ const Signup = () => {
     const [dob, setDob] = useState('');
     const [bio, setBio] = useState('');
     const [file, setFile] = useState();
+    const [avatar, setAvatar] = useState(null)
 
     const handleSignup = async (e) => {
       e.preventDefault();
@@ -25,6 +26,29 @@ const Signup = () => {
     
         if (response.status === 201) {
           console.log('User registerd successfully!');
+          let formData = new FormData();
+          formData.append("email", email);
+          formData.append("username", email);
+          formData.append("first_name", displayname);
+          formData.append("last_name", displayname);
+          formData.append("secret", password);
+          if (avatar) {
+            formData.append("avatar", avatar, avatar.name);
+          }
+      
+          const headers = { "Private-Key": "59efcd41-3ee0-499d-997b-d7c987587147" };
+      
+          axios
+            .post("https://api.chatengine.io/users/", formData, {
+              headers,
+            })
+            .then((r) => {
+              if (r.status === 201) {
+                console.log("Successfully created a new user.");
+                console.log(r.data);
+              }
+            })
+            .catch((e) => console.log("Error", e));
           router.push('/auth/login');
         } else {
           console.error('Failed to Failed to register User:', response.status, response.statusText);
@@ -33,7 +57,7 @@ const Signup = () => {
         console.error('Error Registering User:', error);
         alert("Error Registering User due duplicate entries");
       }
-
+      
     };
     
     return (

@@ -154,7 +154,9 @@ function Post({ user, postImage, content , timestamp, postId,currentUserId,updat
           ) : (
             <FavoriteBorderIcon className="text-gray-500 cursor-pointer w-6 h-6" onClick={handleLike} />
           )}
-          <ChatBubbleOutlineIcon className="text-gray-500 cursor-pointer w-6 h-6" />
+          <a href={`/post/${postId}`}>
+            <ChatBubbleOutlineIcon className="text-gray-500 cursor-pointer w-6 h-6" />
+          </a>
         </div>
         <div>
           {bookmark ? (
@@ -169,7 +171,7 @@ function Post({ user, postImage, content , timestamp, postId,currentUserId,updat
         </div>
       </div>
       <p className="px-4 py-2 text-sm text-gray-500">Liked by {likesCount} people.</p>
-  </div>
+    </div>
 
   );
 }

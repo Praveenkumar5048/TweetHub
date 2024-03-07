@@ -68,7 +68,7 @@ function PostPage() {
               }
             </div>
           </div>
-          <div className="mx-auto flex-1/4 overflow-hidden">
+          <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
             <Suggestions />
             <Trending />
           </div>

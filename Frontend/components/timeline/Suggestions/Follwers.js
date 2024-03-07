@@ -63,7 +63,7 @@ function Suggestions() {
             <span className="avatar">
               <Avatar src={`http://localhost:8080/${user.profile_path}`} />
             </span>
-            <span className="ml-2 text-white font-semibold">{user.displayname}</span>
+            <a href={`/profile/${user.user_id}`}><span className="ml-2 text-white font-semibold hover:text-blue-500">{user.displayname}</span></a>
           </div>
          <button className="rounded-xl ml-12 text-blue-500 font-bold bg-transparent border-0 hover:text-white" onClick={ () => handleFollowing(user.user_id)}>
           Follow

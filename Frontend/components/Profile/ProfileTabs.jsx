@@ -61,7 +61,7 @@ const ProfileTabs = ({ userData ,currentUserId,updateOfUserDetails}) => {
 			</>
 		) :(
 			<div className='flex flex-col items-center mt-10'>
-				<UserPosts userData={userData?.posts[0]} />
+				<UserPosts postsData={userData?.posts[0]} />
 			</div>
 		)
 	}
