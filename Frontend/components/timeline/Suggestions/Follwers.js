@@ -14,7 +14,6 @@ function Suggestions() {
     if (typeof window !== 'undefined') { 
       const storedUserId = localStorage.getItem("userId");
       setStoredUserId(storedUserId);
-      console.log(storedUserId);
     }
   }, []);
   
@@ -28,7 +27,6 @@ function Suggestions() {
           const response = await axios.get(`http://localhost:8080/suggestions/${storedUserId}`);
           if(response.status === 201){
             setArray(response.data.followerData);
-            console.log(response.data.followerData);
           }
         } catch (error) {
           console.error('Error fetching user details:', error);
@@ -63,9 +61,9 @@ function Suggestions() {
             <span className="avatar">
               <Avatar src={`http://localhost:8080/${user.profile_path}`} />
             </span>
-            <a href={`/profile/${user.user_id}`}><span className="ml-2 text-white font-semibold hover:text-blue-500">{user.displayname}</span></a>
+            <a href={`/profile/${user.user_id}`}><span className="ml-2  font-semibold hover:text-blue-500">{user.displayname}</span></a>
           </div>
-         <button className="rounded-xl ml-12 text-blue-500 font-bold bg-transparent border-0 hover:text-white" onClick={ () => handleFollowing(user.user_id)}>
+         <button className="rounded-xl ml-12 text-blue-500 font-bold bg-transparent border-0 hover:text-black" onClick={ () => handleFollowing(user.user_id)}>
           Follow
          </button>
          </div>

@@ -62,7 +62,7 @@ const CreatePost = () => {
   
 
   return (
-    <div className="bg-black h-screen">
+    <div className="h-screen">
     <div className="flex">
       <div className="relative flex-shrink-0 w-1/5 px-4 py-8">
         <Sidenav />

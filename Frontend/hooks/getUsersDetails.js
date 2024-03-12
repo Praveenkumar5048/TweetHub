@@ -11,3 +11,4 @@ export const getUserBySearch = async (query) => {
     const users = await response.json();
     return users;
   };
+

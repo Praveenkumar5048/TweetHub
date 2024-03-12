@@ -9,11 +9,10 @@ function Profilepage() {
     useEffect(() => {
         const getuserId = window.location.pathname.split("/").pop();
         setUserId(getuserId);
-        console.log(getuserId)
       }, []);
 
   return (
-    <div className="flex bg-black">
+    <div className="flex bg-gradient-to-r from-white to-gray-100">
       <div className="relative flex-shrink-0 w-1/5">
         <Sidenav />
       </div>

@@ -4,7 +4,7 @@ import ReelsPage from "@/components/ReelsPage/ReelsPage";
 
 function ReelPage() {
   return (
-    <div className="flex bg-black">
+    <div className="flex">
       <div className="relative flex-shrink-0 w-1/5">
         <Sidenav />
       </div>

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import Post from "../timeline/Post/Post.js";
 import Suggestions from "../timeline/Suggestions/Follwers.js";
 import Trending from "../timeline/Suggestions/Trending";
@@ -45,13 +45,13 @@ function Profilepage({user_id}) {
   }
 
   return (
-    <div className="mr-5 bg-black">
+    <div className="mr-5 bg-gradient-to-r from-white to-gray-100" key={profileData}>
       {error ? (
         <p>Error: {error}</p> 
       ) : isLoading ? (
         <p>Loading profile...</p> 
       ) : (
-         <div className="flex w-full h-screen">
+         <div className="flex w-full h-screen" key={profileData?.user}>
           <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
             <ProfileHeader 
               userData={profileData}

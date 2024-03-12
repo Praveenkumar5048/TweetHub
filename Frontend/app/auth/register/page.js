@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
+import { privateKey } from '@/components/functions/constants';
 
 const Signup = () => {
   
@@ -26,26 +27,22 @@ const Signup = () => {
     
         if (response.status === 201) {
           console.log('User registerd successfully!');
+
           let formData = new FormData();
           formData.append("email", email);
           formData.append("username", email);
           formData.append("first_name", displayname);
-          formData.append("last_name", displayname);
+          formData.append("last_name", "");
           formData.append("secret", password);
-          if (avatar) {
-            formData.append("avatar", avatar, avatar.name);
-          }
-      
-          const headers = { "Private-Key": "59efcd41-3ee0-499d-997b-d7c987587147" };
-      
+
+          const headers = { "Private-Key": privateKey};
           axios
             .post("https://api.chatengine.io/users/", formData, {
               headers,
             })
             .then((r) => {
               if (r.status === 201) {
-                console.log("Successfully created a new user.");
-                console.log(r.data);
+                console.log("user created succesfully");
               }
             })
             .catch((e) => console.log("Error", e));

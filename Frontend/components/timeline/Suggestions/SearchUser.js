@@ -32,7 +32,7 @@ function UserSearchBox() {
                         <Avatar src={`http://localhost:8080/${user.profile_path}`} />
                         </span>
                         <a href={`/profile/${user.user_id}`}>
-                         <span className="ml-2 text-white font-semibold hover:text-blue-600">{user.displayname}</span>
+                         <span className="ml-2 text-black font-semibold hover:text-blue-600">{user.displayname}</span>
                         </a>
                     </div>
                 </div>

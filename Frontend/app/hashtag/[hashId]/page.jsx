@@ -4,7 +4,7 @@ import HashTag from '@/components/HashTagPage/Hashtag'
 
 function HashTagPage() {
   return (
-    <div className="flex bg-black">
+    <div className="flex">
       <div className="relative flex-shrink-0 w-1/5">
         <Sidenav />
       </div>

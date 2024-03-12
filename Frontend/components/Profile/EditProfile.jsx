@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Modal = ({ isOpen, onClose, userData }) => {
-
+const Modal = ({ isOpen, onClose, userData,updateOfUserDetails}) => {
   const [formData, setFormData] = useState({
     userId :userData?.user?.user_id || "",
     fullName: userData?.user?.displayname || "", 
@@ -45,15 +44,13 @@ const Modal = ({ isOpen, onClose, userData }) => {
 
       if (response.ok) {
         console.log("Profile updated successfully!");
-        onClose(); // Close the modal after successful update
-        window.location.reload();
+        updateOfUserDetails();
+        onClose(); 
       } else {
         console.error("Error updating profile:", await response.text());
-        // Handle error gracefully (display error message to user)
       }
     } catch (error) {
       console.error("Error submitting data:", error);
-      // Handle error gracefully (display error message to user)
     }
   };
 

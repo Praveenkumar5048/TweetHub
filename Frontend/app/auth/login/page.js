@@ -1,35 +1,35 @@
 "use client";
-import { useState } from 'react';
+import { useState ,useContext} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
 
 const Login = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const router = useRouter(); 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-  
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      
-      try {
-        const response = await axios.post('http://localhost:8080/login', { email, password} );
-        
-        if (response.status === 201) {
-          localStorage.setItem('userId', JSON.stringify(response.data.user.user_id));
-          router.push('/home');
-        } 
-      } catch (error) {
-        console.error('Error During login User:', error);
-        alert("Invalid Email or Password")
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:8080/login', { email, password });
+
+      if (response.status === 201) {
+        const userId = response.data.user.user_id;
+        localStorage.setItem('userId', JSON.stringify(userId));
+        router.push('/home');
       }
-    };
-  
-    return (
+    } catch (error) {
+      console.error('Error During login User:', error);
+      alert("Invalid Email or Password");
+    }
+  };
+
+  return (
       <div className="flex h-screen items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500">
         <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-          <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Social Media App</h1>
+          <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Tweetverse</h1>
           <form className="space-y-4" onSubmit={handleLogin}>
             <div>
               <label className="block text-sm font-medium text-gray-600">Email:</label>
@@ -66,8 +66,7 @@ const Login = () => {
           </p>
         </div>
       </div>
-    );
-  };
-  
-  export default Login;
-  
+  );
+};
+
+export default Login;
