@@ -14,6 +14,7 @@ const Signup = () => {
     const [dob, setDob] = useState('');
     const [bio, setBio] = useState('');
     const [file, setFile] = useState();
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSignup = async (e) => {
       e.preventDefault();
@@ -27,11 +28,14 @@ const Signup = () => {
           console.log('User registerd successfully!');
           router.push('/auth/login');
         } else {
-          console.error('Failed to Failed to register User:', response.status, response.statusText);
+          // Handle login failure
+          const errorData = await response.json();
+          setErrorMessage(errorData.message || 'Registration failed');
+          console.error('Registration failed');
         }
       } catch (error) {
         console.error('Error Registering User:', error);
-        alert("Error Registering User due duplicate entries");
+        setErrorMessage('Error Registering User due duplicate entries');
       }
 
     };
@@ -106,6 +110,7 @@ const Signup = () => {
             >
               Sign Up
             </button>
+            <p className="text-red-500 mt-2">{errorMessage}</p>
           </form>
           <p className="mt-4 text-gray-700">
             Already have an account?{' '}

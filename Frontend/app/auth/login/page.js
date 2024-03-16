@@ -9,7 +9,8 @@ const Login = () => {
     const router = useRouter(); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-  
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleLogin = async (e) => {
       e.preventDefault();
       
@@ -19,10 +20,15 @@ const Login = () => {
         if (response.status === 201) {
           localStorage.setItem('userId', JSON.stringify(response.data.user.user_id));
           router.push('/home');
-        } 
+        } else {
+          // Handle login failure
+          const errorData = await response.json();
+          setErrorMessage(errorData.message || 'Login failed');
+          console.error('Login failed');
+        }
       } catch (error) {
         console.error('Error During login User:', error);
-        alert("Invalid Email or Password")
+        setErrorMessage('Invalid Email or Password');
       }
     };
   
@@ -57,6 +63,7 @@ const Login = () => {
             >
               Login
             </button>
+            <p className="text-red-500 mt-2">{errorMessage}</p>
           </form>
           <p className="mt-4 text-gray-700">
             Don't have an account?{' '}

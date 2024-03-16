@@ -78,7 +78,7 @@ const CreatePost = () => {
               onChange={(e) => setContent(e.target.value)}
             />
         
-         <div className="relative border border-gray-300 rounded-md px-2 py-1 flex items-center justify-between bg-white w-80">
+          <div className="relative border border-gray-300 rounded-md px-2 py-1 flex items-center justify-between bg-white w-80">
             <input
             type="file"
             id="fileInput"

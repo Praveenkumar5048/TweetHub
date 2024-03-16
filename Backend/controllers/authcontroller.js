@@ -15,11 +15,11 @@ export const loginUser  = async (req, res) => {
                 res.status(201).json({ user: user,message: 'Login successful!' });
             } else {
                
-                res.status(401).json({ error: 'Invalid email or password' });
+                res.status(401).json({ message: 'Invalid email or password' });
             }
         } else {
            
-            res.status(404).json({ error: 'User not found' });
+            res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
         console.error('Error logging in:', error);
@@ -32,7 +32,8 @@ export const signupUser  = async (req, res) => {
     try {
         
         const { displayname, username, email, dob, bio, password} = req.body;
-      
+        
+        
         const insertUserQuery = `INSERT INTO Users (displayname, username, email, dob, bio, password_hash)
         VALUES (?, ?, ?, ?, ?, ?)`;
 
@@ -41,7 +42,7 @@ export const signupUser  = async (req, res) => {
         if (result[0].affectedRows === 1) {
             res.status(201).json({ message: 'User registered successfully!' });
         } else {
-            res.status(500).json({ error: 'Failed to register user' });
+            res.status(404).json({ message: 'Failed to register user' });
         }
     } catch (error) {
         console.error('Error Registering User:', error);
