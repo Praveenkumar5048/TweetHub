@@ -59,7 +59,7 @@ const Modal = ({ isOpen, onClose, userData }) => {
 
   return (
     <div
-      className={`fixed inset-0 bg-black bg-opacity-50 transition-all duration-300 ease-in-out ${
+      className={`fixed inset-0 bg-black bg-opacity-50 transition-all duration-300 ease-in-out z-10 ${
         isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}
     >
