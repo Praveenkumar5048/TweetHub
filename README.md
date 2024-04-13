@@ -16,11 +16,9 @@ Make sure you have the following installed on your machine:
    ```bash
    git clone https://github.com/your-username/TweetHub.git 
 2. ```bash
-   cd Backend
-3. ```bash     
+   cd Backend   
    mysql -u <username> -p -e "source schema.sql"
-4. ```bash
    npm run dev 
-5. ```bash
+3. ```bash
    cd Frontend  
    npm run dev
