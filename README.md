@@ -23,4 +23,4 @@ Make sure you have the following installed on your machine:
    npm run dev 
 5. ```bash
    cd Frontend  
--  npm run dev
+   npm run dev
