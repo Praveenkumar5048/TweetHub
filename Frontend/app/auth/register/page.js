@@ -1,36 +1,69 @@
 "use client";
 import { useState } from 'react';
 import Link from 'next/link';
-
-// Import necessary modules and dependencies
+import axios from 'axios';
+import { useRouter } from 'next/navigation'
 
 const Signup = () => {
-    const [name, setName] = useState('');
+  
+    const router = useRouter(); 
+    const [displayname, setDisplayName] = useState('');
+    const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [dob, setDob] = useState('');
     const [bio, setBio] = useState('');
-  
-    const handleSignup = (e) => {
+    const [file, setFile] = useState();
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleSignup = async (e) => {
       e.preventDefault();
-      // Implement your signup logic here using 'name', 'email', 'dob', 'bio'
-      console.log('Signing up with:', name, email, dob, bio,password);
+      
+      try {
+    
+        const response = await axios.post('http://localhost:8080/signUp', 
+        {displayname, username, email, dob, bio, password} );
+    
+        if (response.status === 201) {
+          console.log('User registerd successfully!');
+          router.push('/auth/login');
+        } else {
+          // Handle login failure
+          const errorData = await response.json();
+          setErrorMessage(errorData.message || 'Registration failed');
+          console.error('Registration failed');
+        }
+      } catch (error) {
+        console.error('Error Registering User:', error);
+        setErrorMessage('Error Registering User due duplicate entries');
+      }
+
     };
-  
+    
     return (
       <div className="flex h-screen items-center justify-center bg-gradient-to-r from-pink-500 to-purple-500">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <div className="bg-white p-8 rounded-lg shadow-lg w-1/2">
           <h1 className="text-4xl font-extrabold text-gray-800 mb-6">Create Your Account</h1>
           <form className="space-y-4" onSubmit={handleSignup}>
             <div>
-              <label className="block text-sm font-medium text-gray-600">Name:</label>
+              <label className="block text-sm font-medium text-gray-600">Display Name:</label>
               <input
                 type="text"
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+                placeholder="Enter your display name"
+                value={displayname}
+                onChange={(e) => setDisplayName(e.target.value)}
+              ></input>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-600">Username:</label>
+              <input
+                type="text"
+                className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
+              ></input>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">Email:</label>
@@ -40,7 +73,7 @@ const Signup = () => {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              />
+              ></input>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">Date of Birth:</label>
@@ -49,7 +82,7 @@ const Signup = () => {
                 className="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-              />
+              ></input>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-600">Bio:</label>
@@ -68,14 +101,16 @@ const Signup = () => {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              />
+              ></input>
             </div>
+           
             <button
               type="submit"
               className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 focus:outline-none focus:ring focus:border-blue-300"
             >
               Sign Up
             </button>
+            <p className="text-red-500 mt-2">{errorMessage}</p>
           </form>
           <p className="mt-4 text-gray-700">
             Already have an account?{' '}

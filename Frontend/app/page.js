@@ -1,20 +1,8 @@
-/*
-import Homepage from "@/components/Homepage/Homepage";
-
-export default function Home() {
-  return (
-    <div class="bg-black text-white">
-      <Homepage/>
-    </div>
-  );
-}
-*/
-
 import Link from 'next/link';
 
 function Home() {
   return (
-    <div className="flex h-screen justify-center items-center bg-gray-100">
+    <div className="flex h-screen justify-center items-center bg-gray-100" >
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-6">Welcome to My Awesome App</h1>
         <div className="space-x-4">

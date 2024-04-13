@@ -1,29 +1,30 @@
 import express from 'express';
-import { getUsers, getPosts, getLikes, getComments } from './database.js';  // Adjust the path if needed
+import cors from "cors";
+import bodyParser from "body-parser"
+import routes from "./routes/routes.js";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
 const app = express();
-app.use(express.json());
 const port = 8080;
 
-app.get('/users', async (req, res) => {
-    const response = await getUsers();
-    res.send(response);
-});
+app.use(express.json());
+app.use(cors());
+app.use(express.static('Uploads'));
 
-app.get('/posts', async (req, res) => {
-    const response = await getPosts();
-    res.send(response);
-});
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/likes', async (req, res) => {
-    const response = await getLikes();
-    res.send(response);
-});
+app.use("/", routes);
 
-app.get('/comments', async (req, res) => {
-    const response = await getComments();
-    res.send(response);
-});
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Define the directory containing your static files (e.g., images)
+const staticProfileFilesDirectory = join(__dirname, 'Uploads', 'profile_photos');
+const staticPostsFilesDirectory = join(__dirname, 'Uploads', 'posts');
+
+// Serve static files from the specified directory
+app.use('/uploads/profile_photos', express.static(staticProfileFilesDirectory));
+app.use('/uploads/posts', express.static(staticPostsFilesDirectory));
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
