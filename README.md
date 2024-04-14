@@ -1,7 +1,8 @@
 ## This is a full stack Web Project focusing DBMS
 
 ### Description
-This website is a social media platform that resembles Twitter, developed using Next.js, Express.js, and MySQL, offering a robust social media experience. Users can register, log in securely, and engage with various features including posting content (text, images, or videos), interacting with others' posts through likes and comments, managing their profiles, and exploring trending topics via hashtags just like the twitter.
+This website is a social media platform that resembles Twitter, developed using Next.js, Express.js, and MySQL, offering a robust social media experience. Users can register, log in securely, and engage with various features including posting content (text, images, or videos), interacting with others' posts through likes and comments, managing their profiles, and exploring trending topics via hashtags just like the twitter. Additionally, users can follow each other, and follower/following counts are displayed on user profiles.
+- File upload functionality for photos and images is managed using the Multer library.
 
 Follow these steps to set up and run the project locally.
 
