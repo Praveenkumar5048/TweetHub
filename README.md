@@ -27,3 +27,13 @@ Make sure you have the following installed on your machine:
    cd Frontend  
    npm install
    npm run dev
+
+### Website Screenshots
+- Home Page 
+![](Screenshots/home.png)
+
+- User Profile Page
+![](Screenshots/profile.png)
+
+- Post with comments section
+![](Screenshots/comments.png)
