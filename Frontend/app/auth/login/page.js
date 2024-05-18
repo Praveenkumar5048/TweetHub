@@ -1,8 +1,9 @@
-"use client";
+'use client';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
+import Loader from "../../../components/Loader/loader.js";
 
 const Login = () => {
 
@@ -10,18 +11,22 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e) => {
       e.preventDefault();
       
       try {
+        setLoading(true);
         const response = await axios.post('http://localhost:8080/login', { email, password} );
         
         if (response.status === 201) {
-          localStorage.setItem('userId', JSON.stringify(response.data.user.user_id));
-          router.push('/home');
+            const { token, user } = response.data;
+            localStorage.setItem('tweettoken', token);
+            localStorage.setItem('tweetuserId', user.userId);
+            router.push("/home");
         } else {
-          // Handle login failure
+          setLoading(false);
           const errorData = await response.json();
           setErrorMessage(errorData.message || 'Login failed');
           console.error('Login failed');
@@ -31,7 +36,11 @@ const Login = () => {
         setErrorMessage('Invalid Email or Password');
       }
     };
-  
+    
+    if (loading) {
+      return <Loader />;
+    }
+
     return (
       <div className="flex h-screen items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500">
         <div className="bg-white p-8 rounded-lg shadow-lg w-96">

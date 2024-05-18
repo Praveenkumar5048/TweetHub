@@ -1,4 +1,5 @@
 import { db } from "../database.js"; 
+import jwt from 'jsonwebtoken';
 
 export const loginUser  = async (req, res) => {
     
@@ -7,16 +8,28 @@ export const loginUser  = async (req, res) => {
     try {
         
         const getUserQuery = `SELECT * FROM Users WHERE email = ?`;
+
         const userData = await db.query(getUserQuery, [email]);
+
         if (userData[0].length !== 0) {
             const user = userData[0][0];
             
-            if (user.password_hash === password) {
-                res.status(201).json({ user: user,message: 'Login successful!' });
-            } else {
-               
+            if (user.password_hash !== password) {
                 res.status(401).json({ message: 'Invalid email or password' });
+            } 
+            // Creating Token
+            const payload = { user: { id: user.user_id } };
+
+            jwt.sign(payload, 'jwtSecret', { expiresIn: 3600 }, (err, token) => {
+
+            if (err) {
+                console.error(err.message);
+                return res.status(500).json({ msg: 'Error generating token' });
             }
+            res.status(201).json({ token, user : {userId : user.user_id}, message : 'Login successful!'});
+            
+            });
+           
         } else {
            
             res.status(404).json({ message: 'User not found' });
