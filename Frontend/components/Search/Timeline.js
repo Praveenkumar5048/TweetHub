@@ -6,12 +6,15 @@ import Trending from "../timeline/Suggestions/Trending.js";
 import axios from 'axios';
 import { fetchPostsBySearchQuery ,fetchPosts} from "@/hooks/getPostsDetails.js";
 import SearchBox from "./SearchBox.js";
+import Loader from '../Loader/loader.js';
 
 function Timeline() {
 
   const [posts, setPosts] = useState([]);
-  
+  const [loader, setLoader] = useState(false);
+
   const onSearchSubmit = async (searchQuery) => {
+    
     try {
       const fetchedPosts = await fetchPostsBySearchQuery(searchQuery);
       setPosts(fetchedPosts);
@@ -36,9 +39,8 @@ function Timeline() {
   return (
     <div className="mx-auto flex h-screen">
       <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
-        <SearchBox 
-                onSearchSubmit={onSearchSubmit}
-            />
+        <SearchBox onSearchSubmit={onSearchSubmit} />
+      { loader ? <Loader /> : (
        <div className="grid grid-cols-1 gap-4">
             {(posts ?? []).length === 0 ? (
                 <p className="text-white text-center mt-8">
@@ -63,6 +65,8 @@ function Timeline() {
                 ))
             )}
         </div>
+      )
+      }
       </div>
       <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
         <Suggestions />

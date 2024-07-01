@@ -29,6 +29,7 @@ function Sidenav() {
   
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
       const storedUserId = localStorage.getItem("tweetuserId");
       setUserId(storedUserId);
 
@@ -36,6 +37,7 @@ function Sidenav() {
         try {
           const response = await axios.get(`http://localhost:8080/userDetails/${storedUserId}`);
           setUserDetails(response.data);
+          setLoading(false);
         } catch (error) {
           console.error('Error fetching user details:', error);
         }
@@ -45,9 +47,6 @@ function Sidenav() {
     fetchData();
   }, [])
   
-  const handleProfileClick = (e) => {
-    setLoading(true);
-  };
 
   const handleLogout = () => {
     localStorage.removeItem('tweettoken');
@@ -96,7 +95,7 @@ function Sidenav() {
         </Link>
       </div>
       <Link href={`/profile/${userId}`}>
-        <button  className=" flex items-center rounded-lg  py-4 px-4 hover:bg-gray-500" onClick={handleProfileClick}>
+        <button  className=" flex items-center rounded-lg  py-4 px-4 hover:bg-gray-500" >
           <Avatar src={`http://localhost:8080/${userDetails.profile_path}`} alt='profile' className="mr-2 w-8 h-8" />
           <span className="text-xl text-white">Profile</span>
         </button>

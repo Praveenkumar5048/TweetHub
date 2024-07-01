@@ -37,3 +37,7 @@ Make sure you have the following installed on your machine:
 
 - Post with comments section
 ![](Screenshots/comments.png)
+
+### Report
+
+You can access the project documentation [IEEE-Report](https://drive.google.com/file/d/1byKHJMnf606RlN1opouIH3z4qMjwvPFw/view?usp=sharing).

@@ -4,16 +4,19 @@ import Post from "./Post/Post.js";
 import Suggestions from "./Suggestions/Follwers.js";
 import Trending from "./Suggestions/Trending";
 import { fetchPosts } from "@/hooks/getPostsDetails.js";
+import Loader from '../Loader/loader.js';
 
 function Timeline() {
 
   const [posts, setPosts] = useState([]);
-  
+  const [loader, setLoader] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
+      setLoader(true);
       try {
         const fetchedPosts = await fetchPosts();
         setPosts(fetchedPosts);
+        setLoader(false);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
@@ -25,6 +28,9 @@ function Timeline() {
 
   return (
     <div className="mx-auto flex h-screen">
+      
+      {loader ? ( <Loader /> ) :
+      (
       <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
         <div className="grid grid-cols-1 gap-4">
         {posts.length === 0 ? (
@@ -49,6 +55,8 @@ function Timeline() {
         )}  
         </div>
       </div>
+      )
+      }
       <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
         <Suggestions />
         <Trending />
