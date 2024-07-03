@@ -35,8 +35,8 @@ function Timeline() {
   }, []);  
 
   return (
-    <div className="mx-auto flex h-screen">
-      <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+    <div className="flex justify-center h-screen">
+      <div className="overflow-y-auto" style={{ scrollbarWidth: "none" }}>
         <SearchBox onSearchSubmit={onSearchSubmit} />
       { loader ? <Loader /> : (
        <div className="grid grid-cols-1 gap-4">

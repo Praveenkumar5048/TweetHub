@@ -25,11 +25,11 @@ function Timeline() {
   }, []);
 
   return (
-    <div className="mx-auto flex h-screen">
+    <div className="flex justify-center h-screen">
       
       {loader ? ( <Loader /> ) :
       (
-      <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+      <div className="overflow-y-auto" style={{ scrollbarWidth: "none" }}>
         <div className="grid grid-cols-1 gap-4">
         {posts.length === 0 ? (
         <div className="p-8 text-white text-xl mt-16">

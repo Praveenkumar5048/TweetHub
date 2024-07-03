@@ -19,7 +19,7 @@ function Home() {
             // If no token, stay on login page
             setLoading(false);
         }
-    }, [router]);
+    }, []);
 
     if (loading) {
         return <Loader />;

@@ -49,8 +49,8 @@ function Profilepage({user_id}) {
       ) : isLoading ? (
         <p>Loading profile...</p> 
       ) : (
-         <div className="flex w-full h-screen">
-          <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+         <div className="flex justify-center h-screen">
+          <div className="overflow-y-auto" style={{ scrollbarWidth: "none" }}>
             <ProfileHeader 
               userData={profileData}
               currentUserId= {currentUserId}
