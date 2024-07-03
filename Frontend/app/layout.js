@@ -1,4 +1,5 @@
 import "./globals.css";
+import ClientLayout from './clientLayout.js';
 
 export const metadata = {
   title: "Tweethub",
@@ -8,7 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   );
 }

@@ -1,8 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import Post from "../timeline/Post/Post.js";
-import Suggestions from "../timeline/Suggestions/Follwers.js";
-import Trending from "../timeline/Suggestions/Trending.js";
 import axios from 'axios';
 import { fetchPostsBySearchQuery ,fetchPosts} from "@/hooks/getPostsDetails.js";
 import SearchBox from "./SearchBox.js";
@@ -68,10 +66,7 @@ function Timeline() {
       )
       }
       </div>
-      <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
-        <Suggestions />
-        <Trending />
-      </div>
+      
     </div>
   );
 }

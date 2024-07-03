@@ -1,9 +1,6 @@
 "use client";
 import React ,{useState,useEffect} from "react";
-import Sidenav from "@/components/navigation/Sidenav";
 import Post from "@/components/timeline/Post/Post";
-import Suggestions from "@/components/timeline/Suggestions/Follwers";
-import Trending from "@/components/timeline/Suggestions/Trending";
 import { fetchPostByPostId } from "@/hooks/getPostsDetails";
 import AllComments from '../../../components/timeline/comments/AllComments'
 import CommentBox from "@/components/timeline/comments/CommentBox";
@@ -40,9 +37,7 @@ function PostPage() {
 
   return (
     <div className="flex bg-black">
-      <div className="relative flex-shrink-0 w-1/5">
-        <Sidenav />
-      </div>
+      
       <div className="flex-grow">
         <div className="mx-auto flex h-screen">
           <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
@@ -68,10 +63,7 @@ function PostPage() {
               }
             </div>
           </div>
-          <div className="mx-auto flex-1/4 overflow-hidden">
-            <Suggestions />
-            <Trending />
-          </div>
+         
         </div>
       </div>
     </div>

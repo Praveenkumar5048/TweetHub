@@ -1,10 +1,8 @@
 "use client";
 import React, { useState,useEffect } from 'react';
-import Sidenav from "../../components/navigation/Sidenav";
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
-import Suggestions from '@/components/timeline/Suggestions/Follwers';
-import Trending from '@/components/timeline/Suggestions/Trending';
+
 
 const CreatePost = () => {
 
@@ -64,9 +62,7 @@ const CreatePost = () => {
   return (
     <div className="bg-black h-screen">
     <div className="flex">
-      <div className="relative flex-shrink-0 w-1/5 px-4 py-8">
-        <Sidenav />
-      </div>
+      
       <div className="mx-auto w-2/5">
         <div className="container mt-10 py-8 bg-white rounded-lg shadow-md">
           <h1 className="text-3xl font-bold mb-6 text-center">Create a Post</h1>
@@ -114,10 +110,7 @@ const CreatePost = () => {
           </form>
         </div>
       </div>
-      <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
-        <Suggestions />
-        <Trending />
-      </div>
+      
     </div>
   </div>
   

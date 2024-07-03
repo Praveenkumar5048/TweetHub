@@ -14,9 +14,6 @@ function Profilepage() {
 
   return (
     <div className="flex bg-black">
-      <div className="relative flex-shrink-0 w-1/5">
-        <Sidenav />
-      </div>
       <div className="flex-grow">
         {userId &&
           <Profile user_id={userId} />

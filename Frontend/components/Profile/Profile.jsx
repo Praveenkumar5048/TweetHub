@@ -1,8 +1,6 @@
 'use client'
 import React, { useState, useEffect } from "react";
 import Post from "../timeline/Post/Post.js";
-import Suggestions from "../timeline/Suggestions/Follwers.js";
-import Trending from "../timeline/Suggestions/Trending";
 import ProfileHeader from "./ProfileHeader";
 import ProfileTabs from "./ProfileTabs";
 
@@ -65,10 +63,7 @@ function Profilepage({user_id}) {
               updateOfUserDetails= {updateOfUserDetails}
               />
           </div>
-          <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
-            <Suggestions />
-            <Trending />
-          </div>
+          
         </div>
           )}
         </div>

@@ -1,8 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import Post from "./Post/Post.js";
-import Suggestions from "./Suggestions/Follwers.js";
-import Trending from "./Suggestions/Trending";
 import { fetchPosts } from "@/hooks/getPostsDetails.js";
 import Loader from '../Loader/loader.js';
 
@@ -57,10 +55,7 @@ function Timeline() {
       </div>
       )
       }
-      <div className="mx-auto flex-1/4 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
-        <Suggestions />
-        <Trending />
-      </div>
+      
     </div>
   );
 }
