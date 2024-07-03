@@ -63,7 +63,7 @@ const CreatePost = () => {
     <div className="bg-black h-screen">
     <div className="flex">
       
-      <div className="mx-auto w-2/5">
+      <div className="mx-auto w-3/4">
         <div className="container mt-10 py-8 bg-white rounded-lg shadow-md">
           <h1 className="text-3xl font-bold mb-6 text-center">Create a Post</h1>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4 px-4 pb-8">
@@ -74,7 +74,7 @@ const CreatePost = () => {
               onChange={(e) => setContent(e.target.value)}
             />
         
-          <div className="relative border border-gray-300 rounded-md px-2 py-1 flex items-center justify-between bg-white w-80">
+          <div className="relative border border-gray-300 rounded-md px-2 py-1 flex items-center justify-between bg-white w-80 cursor-pointer">
             <input
             type="file"
             id="fileInput"

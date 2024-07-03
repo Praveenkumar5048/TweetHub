@@ -14,18 +14,18 @@ export default function ClientLayout({ children }) {
     const isNoLayoutRoute = noLayoutRoutes.includes(pathname);
     
     return (
-      <div className={isNoLayoutRoute ? '' : 'flex h-screen'}>
+      <div className={isNoLayoutRoute ? '' : 'flex h-screen ml-10 mr-10'}>
         {isNoLayoutRoute ? (
           <div>{children}</div>
         ) : (
           <>
-            <div className="flex-none w-1/5 bg-gray-800 text-white">
+            <div className="flex-none w-1/5 bg-slate-500">
               <Sidenav />
             </div>
             <div className="flex-grow overflow-auto">
               {children}
             </div>
-            <div className="flex-none w-1/5 bg-gray-800 p-4 overflow-y-auto">
+            <div className="flex-none w-1/4 bg-gray-800 p-4 overflow-y-auto custom-scrollbar">
               <div className="mb-4">
                 <Suggestions />
               </div>

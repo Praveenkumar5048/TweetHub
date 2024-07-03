@@ -39,8 +39,8 @@ function PostPage() {
     <div className="flex bg-black">
       
       <div className="flex-grow">
-        <div className="mx-auto flex h-screen">
-          <div className="flex-1/2 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+        <div className="flex justify-center h-screen">
+          <div className="overflow-y-auto" style={{ scrollbarWidth: "none" }}>
             <div className="grid grid-cols-1 gap-4">
               {
                 post && 
