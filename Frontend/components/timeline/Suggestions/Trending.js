@@ -35,7 +35,7 @@ function Trending() {
       <Loader />
     ) : (
       <>
-        <h2 className="text-lg font-semibold mb-4 text-gray-500">Trending hashtags</h2>
+        <h2 className="text-lg font-semibold mb-4 text-black">Trending hashtags</h2>
         <div className="grid grid-cols-1 gap-4">
           {hashtags.map((hashtag, index) => (
             <div

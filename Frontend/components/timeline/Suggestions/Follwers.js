@@ -56,7 +56,7 @@ function Suggestions() {
   return (
     <div className="mt-8 mr-4">
       <UserSearchBox/>
-      <div className="font-bold text-gray-500">Suggestions for you</div>
+      <div className="font-bold text-black">Suggestions for you</div>
       <div>
          {array.map((user) => (
          <div key={user.user_id} className="flex items-center justify-between mt-4">
@@ -64,7 +64,7 @@ function Suggestions() {
             <span className="avatar">
               <Avatar src={`http://localhost:8080/${user.profile_path}`} />
             </span>
-            <span className="ml-2 text-white ">{user.displayname}</span>
+            <span className="ml-2 text-black ">{user.displayname}</span>
           </div>
          <button className="rounded-xl ml-12 text-blue-500  bg-transparent border-0 hover:text-white" onClick={ () => handleFollowing(user.user_id)}>
           Follow
