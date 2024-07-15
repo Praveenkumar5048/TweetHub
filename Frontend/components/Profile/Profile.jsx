@@ -15,7 +15,7 @@ function Profilepage({user_id}) {
   useEffect(() => {
     setUserId(user_id);
     if (user_id && !isLoading) {
-      const storedUserId = localStorage.getItem("userId");
+      const storedUserId = localStorage.getItem("tweetuserId");
       setCurrentUserId(Number(storedUserId ));
       setIsLoading(true);
       fetchProfileData(user_id);
